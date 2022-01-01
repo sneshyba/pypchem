@@ -1,5 +1,7 @@
 import numpy as np
 from scipy.interpolate import RectBivariateSpline
+import matplotlib.pyplot as plt
+
 
 def Statespace(xspecs,yspecs):
     xarray = np.linspace(xspecs[0],xspecs[1],xspecs[2])
@@ -9,9 +11,11 @@ def Statespace(xspecs,yspecs):
     ygrid = ygridtemp
     return xgrid, ygrid
 
-def plot_surface(Xgrid, Ygrid, Zgrid, myax, color='purple'):
+def plot_surface(Xgrid, Ygrid, Zgrid, color='purple'):
     # Creates a surface plot in the handle myax
     
+    ax = plt.figure().gca(projection='3d') # Set up a three dimensional graphics window 
+
     # This strips out units if necessary
     if hasattr(Xgrid,'units'):
         Xgridplot = Xgrid.magnitude
@@ -29,7 +33,10 @@ def plot_surface(Xgrid, Ygrid, Zgrid, myax, color='purple'):
         Zgridplot = Zgrid
         
     # Now plot
-    myax.plot_surface(Xgridplot, Ygridplot, Zgridplot, color=color)
+    ax.plot_surface(Xgridplot, Ygridplot, Zgridplot, color=color)
+    
+    # Now return the handle
+    return ax
 
 
 def dF_dx(statespace,Fgrid):
