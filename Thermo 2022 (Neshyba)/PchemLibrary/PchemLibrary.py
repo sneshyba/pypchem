@@ -72,6 +72,24 @@ def dF_dy(statespace,Fgrid):
     ygridnew = ygrid[:,1:]
     return xgridnew, ygridnew, dF_dy
 
+def func_P_isotherm(V1,V2,n,R,T,AssignQuantity,P_units):
+    # Defines an isothermal expansion/contraction function
+    Varray = np.linspace(V1,V2)
+    Varray = AssignQuantity(Varray,V1.units)
+    Parray = n*R*T/Varray
+    Parray.ito(P_units)
+    return Varray, Parray
+
+def func_P_adiabat(V1,V2,n,R,T1,C_V,AssignQuantity,P_units):
+    # Defines an adiabatic expansion/contraction function
+    V2array = np.linspace(V1,V2)
+    V2array = AssignQuantity(V2array,V2.units)
+    P1 = n*R*T1/V1
+    nR_over_C_V = n*R/C_V
+    P2array = P1*(V2array/V1)**(-nR_over_C_V-1)
+    P2array.ito(P_units)
+    return V2array, P2array
+
 def CP_H2Ogas(T,AssignQuantity):
     """ www.engineeringtoolbox.com/water-vapor-d_979.html """
     m = AssignQuantity(0.0067,'J/mol/K^2')
