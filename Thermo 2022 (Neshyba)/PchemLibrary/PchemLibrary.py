@@ -2,7 +2,6 @@ import numpy as np
 from scipy.interpolate import RectBivariateSpline
 import matplotlib.pyplot as plt
 
-
 def Statespace(xspecs,yspecs):
     xarray = np.linspace(xspecs[0],xspecs[1],xspecs[2])
     yarray = np.linspace(yspecs[0],yspecs[1],yspecs[2])
@@ -48,8 +47,8 @@ def dF_dx(statespace,Fgrid):
     dF_dx = dF/dx
     print('Shape of partial derivative =', np.shape(dF_dx))
     try:
+        dF_dx *= Fgrid.units/xgrid.units
         print('Units of partial derivative =', dF_dx.units)
-#         dF_dx *= Fgrid.units/xgrid.units
     except:
         print('No units')
     xgridnew = xgrid[1:,:]
@@ -65,8 +64,8 @@ def dF_dy(statespace,Fgrid):
     dF_dy = dF/dy
     print('Shape of partial derivative =', np.shape(dF_dy))
     try:
+        dF_dy *= Fgrid.units/ygrid.units
         print('Units of partial derivative =', dF_dy.units)
-#         dF_dy *= Fgrid.units/ygrid.units
     except:
         print('No units')
     xgridnew = xgrid[:,1:]
