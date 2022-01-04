@@ -37,7 +37,6 @@ def plot_surface(Xgrid, Ygrid, Zgrid, color='purple'):
     # Now return the handle
     return ax
 
-
 def dF_dx(statespace,Fgrid):
     # Returns the partial of F with respect to x (axis 0) holding y (axis 1) constant
     xgrid = statespace[0]
@@ -104,7 +103,7 @@ def CP_H2Oice(T,AssignQuantity):
     return CP
 
 def CP_H2Oliq(T,AssignQuantity):
-    """ webbook.nist.gov """
+    """ https://webbook.nist.gov/cgi/cbook.cgi?ID=C7732185&Units=SI&Mask=2#Thermo-Condensed """
     A = AssignQuantity(-203.606,'J/mol/K')
     B = AssignQuantity(1523.290,'J/mol/K^2')
     C = AssignQuantity(-3196.413,'J/mol/K^3')
@@ -113,6 +112,8 @@ def CP_H2Oliq(T,AssignQuantity):
     t = T/1000
     CP = A + B*t + C*t**2 + D*t**3 + E/t**2
     return CP
+
+
 
 def Integrator(statespace,dF_dx,dF_dy,AssignQuantity,SState=[],Units=[],axis=0):
     """Integrates a differential equation of state to produce F(x,y)"""
