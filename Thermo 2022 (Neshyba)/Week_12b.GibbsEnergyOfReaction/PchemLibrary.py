@@ -10,10 +10,11 @@ def Statespace(xspecs,yspecs):
     ygrid = ygridtemp
     return xgrid, ygrid
 
-def plot_surface(Xgrid, Ygrid, Zgrid, color='purple'):
+def plot_surface(Xgrid, Ygrid, Zgrid, color='purple', overlay=False, ax=0):
     # Creates a surface plot in the handle myax
     
-    ax = plt.figure().gca(projection='3d') # Set up a three dimensional graphics window 
+    if overlay==False:
+        ax = plt.figure().gca(projection='3d') # Set up a three dimensional graphics window 
 
     # This strips out units if necessary
     if hasattr(Xgrid,'units'):
