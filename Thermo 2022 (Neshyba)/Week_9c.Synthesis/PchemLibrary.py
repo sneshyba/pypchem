@@ -10,10 +10,11 @@ def Statespace(xspecs,yspecs):
     ygrid = ygridtemp
     return xgrid, ygrid
 
-def plot_surface(Xgrid, Ygrid, Zgrid, color='purple'):
+def plot_surface(Xgrid, Ygrid, Zgrid, color='purple', overlay=False, ax=0):
     # Creates a surface plot in the handle myax
     
-    ax = plt.figure().gca(projection='3d') # Set up a three dimensional graphics window 
+    if overlay==False:
+        ax = plt.figure().gca(projection='3d') # Set up a three dimensional graphics window 
 
     # This strips out units if necessary
     if hasattr(Xgrid,'units'):
@@ -180,3 +181,15 @@ def StateSpaceInterpolator(statespace,nxarray,nyarray,Fgrid,AssignQuantity=0):
     if useAssignQuantity:
         result = AssignQuantity(result,Fgrid.units)
     return np.squeeze(result)
+
+def trapz(integrand,x,AssignQuantity=0):
+    # Uses numpy's trapz, but with units
+    try:
+        integrand.units
+        result = np.trapz(integrand.magnitude,x.magnitude)
+        result = AssignQuantity(result,integrand.units*x.units)
+        return result
+    except:
+        print('Integrating without units')
+        result = np.trapz(integrand,x)
+        return result

@@ -181,3 +181,15 @@ def StateSpaceInterpolator(statespace,nxarray,nyarray,Fgrid,AssignQuantity=0):
     if useAssignQuantity:
         result = AssignQuantity(result,Fgrid.units)
     return np.squeeze(result)
+
+def trapz(integrand,x,AssignQuantity=0):
+    # Uses numpy's trapz, but with units
+    try:
+        integrand.units
+        result = np.trapz(integrand.magnitude,x.magnitude)
+        result = AssignQuantity(result,integrand.units*x.units)
+        return result
+    except:
+        print('Integrating without units')
+        result = np.trapz(integrand,x)
+        return result
