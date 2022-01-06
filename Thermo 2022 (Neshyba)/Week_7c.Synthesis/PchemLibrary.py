@@ -14,7 +14,9 @@ def plot_surface(Xgrid, Ygrid, Zgrid, color='purple', overlay=False, ax=0):
     # Creates a surface plot in the handle myax
     
     if overlay==False:
-        ax = plt.figure().gca(projection='3d') # Set up a three dimensional graphics window 
+        fig = plt.figure() 
+        ax = plt.axes(projection='3d')
+#         ax = plt.figure().gca(projection='3d') # Set up a three dimensional graphics window 
 
     # This strips out units if necessary
     if hasattr(Xgrid,'units'):
