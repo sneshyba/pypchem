@@ -51,7 +51,7 @@ Also set the the folder '/srv/nbgrader/exchange' to wide-open privileges. Then (
 
 Setting up nbgrader in a student’s account
 
-After logging on as a student (not sure how much of this is essential):
+After logging on as a student (not sure how much of this is essential); it’s useful to pack this into a script file, like addstudent_nbgrader, if there are a lot of students.
 
 	jupyter nbextension install --user --py nbgrader
 	jupyter nbextension enable nbgrader --user --py
@@ -61,7 +61,7 @@ After logging on as a student (not sure how much of this is essential):
 	jupyter nbextension disable --user course_list/main --section=tree
 	jupyter nbextension list
 
-It’s useful to pack this into a script file, like addstudent_nbgrader, if there are a lot of students.
+
 
 
 To enable a jupyterhub user (instructor) to be admin
