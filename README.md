@@ -37,9 +37,8 @@ Create a file, nbgrader_config.py, in two places: the folder where the code will
 	c.Exchange.root = '/srv/nbgrader/exchange'
 	c.NbGrader.logfile = ‘/home/instructor/pchem/logfile.txt'
 
-Also set the the folder '/srv/nbgrader/exchange' to wide-open privileges
+Also set the the folder '/srv/nbgrader/exchange' to wide-open privileges. Then (probably not all these are essential):
 
-Then (probably not all these are essential):
 	sudo python -m pip install nbgrader
 	sudo python -m pip install --upgrade jupyterthemes
 	sudo jupyter nbextension install --py nbgrader
