@@ -83,8 +83,7 @@ Processing of student work when you don’t want to use the nbgrader mechanism
 	5)	In formgrader/Manage Assignments, press the “Generate Feedback” button. Now there should appear a new folder in pchem called “feedback”. The feedback for each student should be there.
 
 
-Installing Mayavi
-Probably not all the below are necessary
+Installing Mayavi. Probably not all the below are necessary.
 
 	python -m pip install vtk
 	python -m pip install mayavi
@@ -94,15 +93,15 @@ Probably not all the below are necessary
 
 
 Launching a notebook from a terminal window
-jupyter notebook
 
+	jupyter notebook
 
 Launching jupyterhub from a terminal window
-jupyterhub
+
+	jupyterhub
 
 
-Setting the time
-This follows https://archived.forum.manjaro.org/t/howto-get-your-time-timezone-right-using-manjaro-windows-dual-boot/89359
+Setting the time. This follows https://archived.forum.manjaro.org/t/howto-get-your-time-timezone-right-using-manjaro-windows-dual-boot/89359
 
 sudo timedatectl set-local-rtc 0
 sudo systemctl enable --now systemd-timesyncd
