@@ -112,23 +112,21 @@ Setting the time. This follows https://archived.forum.manjaro.org/t/howto-get-yo
 
 Auto-starting jupyter notebook. This follows https://arcolinux.com/how-to-autostart-any-application-on-any-linux-desktop/. Add file jupyter.desktop to ~./config/autostart, containing this:
 
-[Desktop Entry]
-Type=Application
-Name=jupyter
-Exec=jupyter notebook
-StartupNotify=false
-Terminal=false
+	[Desktop Entry]
+	Type=Application
+	Name=jupyter
+	Exec=jupyter notebook
+	StartupNotify=false
+	Terminal=false
 
 
-Trying to making the scrolling “natural” (this didn’t work, however). This follows https://www.reddit.com/r/ManjaroLinux/comments/bagymb/natural_scrolling_in_manjaro_i3/
+Trying to making the scrolling “natural” (this didn’t work, however). This follows https://www.reddit.com/r/ManjaroLinux/comments/bagymb/natural_scrolling_in_manjaro_i3/. Edit /etc/X11/xorg.conf.d/00-touchpad.conf file, adding 
 
-Edited /etc/X11/xorg.conf.d/00-touchpad.conf file, adding 
-
-Section "InputClass"                 
-    ...
-    Option "Natural Scrolling" "true"
-    ...
-EndSection
+	Section "InputClass"                 
+   	 	...
+    		Option "Natural Scrolling" "true"
+    		...
+	EndSection
 
 
 Reporting the version of python from a notebook
