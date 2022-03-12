@@ -2,16 +2,14 @@
 Python code for use in courses in Physical Chemistry
 
 ## Installation Notes
-Configuring pip on a Manjaro vm
-This follows https://jupyterhub.readthedocs.io/en/stable/quickstart.html 
+Configuring pip on a Manjaro vm. This follows https://jupyterhub.readthedocs.io/en/stable/quickstart.html 
 
 	sudo pacman -Syu python-pip
 	sudo pacman -S npm
 	sudo npm install -g configurable-http-proxy
 
 
-Configuring jupyterhub and jupyter notebook on a Manjaro vm
-This follows https://jupyterhub.readthedocs.io/en/stable/quickstart.html 
+Configuring jupyterhub and jupyter notebook on a Manjaro vm. This follows https://jupyterhub.readthedocs.io/en/stable/quickstart.html 
 
 	python -m pip install jupyterhub
 	python -m pip install jupyterlab notebook
