@@ -12,7 +12,7 @@ Configuring pip on a Manjaro vm. This follows https://jupyterhub.readthedocs.io/
 Configuring jupyterhub and jupyter notebook on a Manjaro vm. This follows https://jupyterhub.readthedocs.io/en/stable/quickstart.html.
 
 	python -m pip install jupyterhub
-	python -m pip install jupyterlab notebook
+	python -m pip install jupyter notebook
 
 
 Configuring python
@@ -21,7 +21,6 @@ Configuring python
 	python -m pip install scipy
 	python -m pip install matplotlib
 	python -m pip install pint
-	python -m pip install notebook 
 	python -m pip install tables
 	python -m pip install h5io
 	python -m pip install h5py
