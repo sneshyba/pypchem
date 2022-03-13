@@ -47,6 +47,7 @@ Also set the the folder '/srv/nbgrader/exchange' to wide-open privileges. Then (
 	sudo jupyter serverextension enable --user --py nbgrader
 	jupyter nbextension list
 
+(this alone didn't quite enable jupyter notebook with nbgrader ... trying to figure that out)
 
 Setting up nbgrader in a student’s account
 
