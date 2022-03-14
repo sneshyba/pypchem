@@ -40,6 +40,7 @@ Also set the the folder '/srv/nbgrader/exchange' to wide-open privileges. Then (
 
 	sudo python -m pip install nbgrader
 	sudo python -m pip install --upgrade jupyterthemes
+	sudo python -m pip install jupyter-client==6.1.12
 	sudo jupyter nbextension install --py nbgrader
 	sudo jupyter nbextension install --user —-py nbgrader
 	sudo jupyter nbextension enable nbgrader --py
@@ -48,7 +49,7 @@ Also set the the folder '/srv/nbgrader/exchange' to wide-open privileges. Then (
 	sudo jupyter serverextension enable --user --py nbgrader
 	jupyter nbextension list
 
-(this alone didn't quite enable jupyter notebook with nbgrader ... trying to figure that out)
+The jupyter-client line was needed because the default installed version, version 7.1.2, produced an error during nbgrader's "validation" step.
 
 Setting up nbgrader in a student’s account
 
