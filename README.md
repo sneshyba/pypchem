@@ -32,9 +32,10 @@ Create a file, nbgrader_config.py, in two places: the folder where the code will
 
 	c = get_config()
 	c.CourseDirectory.course_id = “pchem”
-	c.CourseDirectory.root = '/home/instructor/pchem/’
+	c.CourseDirectory.root = '/home/instructor/pchem’
 	c.Exchange.root = '/srv/nbgrader/exchange'
 	c.NbGrader.logfile = ‘/home/instructor/pchem/logfile.txt'
+	c.ClearSolutions.code_stub = {"python": "# Your code here \n"}
 
 Also set the the folder '/srv/nbgrader/exchange' to wide-open privileges. Then (probably not all these are essential):
 
