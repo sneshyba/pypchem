@@ -19,6 +19,7 @@ Configuring python
 
 	python -m pip install numpy
 	python -m pip install scipy
+	python -m pip install sympy
 	python -m pip install matplotlib
 	python -m pip install pint
 	python -m pip install tables
