@@ -44,6 +44,7 @@ Also set the the folder '/srv/nbgrader/exchange' to wide-open privileges. Then (
 	sudo jupyter nbextension enable nbgrader --py
 	sudo jupyter nbextension install --user —-py nbgrader
 	sudo jupyter nbextension enable —-user —-py nbgrader
+	sudo jupyter nbextension enable --system --py nbgrader
 	sudo jupyter serverextension enable --user --py nbgrader
 	jupyter nbextension list
 
