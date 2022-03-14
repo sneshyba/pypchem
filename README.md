@@ -48,6 +48,7 @@ Also set the the folder '/srv/nbgrader/exchange' to wide-open privileges. Then (
 	sudo jupyter nbextension enable —-user —-py nbgrader
 	sudo jupyter nbextension enable --system --py nbgrader
 	sudo jupyter serverextension enable --user --py nbgrader
+	sudo jupyter serverextension enable --system --py nbgrader
 	jupyter nbextension list
 
 The jupyter-client line was needed because the default installed version, version 7.1.2, produced an error during nbgrader's "validation" step.
