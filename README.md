@@ -12,7 +12,7 @@ Configuring pip on a Manjaro vm. This follows https://jupyterhub.readthedocs.io/
 Configuring jupyterhub and jupyter notebook on a Manjaro vm. This follows https://jupyterhub.readthedocs.io/en/stable/quickstart.html.
 
 	python -m pip install jupyterhub
-	python -m pip install jupyter notebook
+	python -m pip install jupyterlab notebook
 
 
 Configuring python
@@ -38,7 +38,15 @@ Create a file, nbgrader_config.py, in two places: the folder where the code will
 	c.NbGrader.logfile = ‘/home/instructor/pchem/logfile.txt'
 	c.ClearSolutions.code_stub = {"python": "# Your code here \n"}
 
-Also set the the folder '/srv/nbgrader/exchange' to wide-open privileges. Then (probably not all these are essential):
+Also set the the folder '/srv/nbgrader/exchange' to wide-open privileges. 
+
+	sudo python -m pip install nbgrader
+	sudo nbextension enable --system --py nbgrader
+	sudo jupyter nbextension install --system --py nbgrader
+	sudo jupyter nbextension enable --system --py nbgrader
+	sudo jupyter serverextension enable --system --py nbgrader
+
+These are old notes:
 
 	sudo python -m pip install nbgrader
 	sudo python -m pip install --upgrade jupyterthemes
@@ -52,7 +60,7 @@ Also set the the folder '/srv/nbgrader/exchange' to wide-open privileges. Then (
 	sudo jupyter serverextension enable --system --py nbgrader
 	jupyter nbextension list
 
-The jupyter-client line was needed because the default installed version, version 7.1.2, produced an error during nbgrader's "validation" step.
+	(The jupyter-client line was needed because the default installed version, version 7.1.2, produced an error during nbgrader's "validation" step.)
 
 Setting up nbgrader in a student’s account
 
