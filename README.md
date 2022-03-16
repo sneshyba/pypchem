@@ -31,6 +31,7 @@ How do we implement this?
 	
 	
 Here are ways to query the versions:
+
 	python --version
 	jupyter --version
 	jupyterhub --version
