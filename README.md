@@ -86,16 +86,16 @@ After logging on as a student (not sure how much of this is essential); it’s u
 	jupyter nbextension list
 
 
-Configuring python
+Configuring python -- using "sudo" imports for all users (I think)
 
-	python -m pip install numpy
-	python -m pip install scipy
-	python -m pip install sympy
-	python -m pip install matplotlib
-	python -m pip install pint
-	python -m pip install tables
-	python -m pip install h5io
-	python -m pip install h5py
+	sudo python -m pip install numpy
+	sudo python -m pip install scipy
+	sudo python -m pip install sympy
+	sudo python -m pip install matplotlib
+	sudo python -m pip install pint
+	sudo python -m pip install tables
+	sudo python -m pip install h5io
+	sudo python -m pip install h5py
 
 
 To enable a jupyterhub user (instructor) to be admin
