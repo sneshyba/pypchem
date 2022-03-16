@@ -21,11 +21,10 @@ Then, jupyter and nbgrader installation. But we need a compatible set of version
 How do we implement this?
 
 	python -m pip install jupyterhub
-	python -m pip install jupyter --version==6.4.4
-	python -m pip install jupyter-client==5.3.1
 	python -m pip install notebook
 	python -m pip install jupyterlab
-	python -m pip install jupyter-client==6.1.12
+	python -m pip install jupyter --version==6.4.4
+	python -m pip install jupyter-client==5.3.1
 	jupyter nbextension install --system --py nbgrader --version==0.6.2
 	jupyter nbextension enable nbgrader --py
 	
