@@ -10,26 +10,44 @@ Configuring pip on a Manjaro vm. This follows https://jupyterhub.readthedocs.io/
 
 Configuring jupyterhub and jupyter notebook on a Manjaro vm. This follows https://jupyterhub.readthedocs.io/en/stable/quickstart.html.
 
-Then, jupyter and nbgrader installation. But we need a compatible set of versions. Here's one
+Then, jupyter and nbgrader installation. We need a compatible set of versions, and it would be best if the versions were all the same (instructor and students), but there seems to be considerable flexibility here. For example, this actually works:
 
+	The instructor:
 	python version 3.10.2
 	nbgrader version 0.6.2 
 	jupyter notebook version 6.0.0
-	jupyter client version 5.3.1
+	jupyter_client version 6.1.12
 	jupyter traitlets version 4.3.3
 
-How do we implement this?
+	Student1:
+	python version 3.10.2
+	nbgrader version 0.6.2 
+	jupyter notebook version 6.4.10
+	jupyter_client version 6.1.12
+	jupyter traitlets version 4.3.3
+
+	student2:
+	python version 3.10.2
+	nbgrader version 0.6.2 
+	jupyter notebook version 6.4.10
+	jupyter_client version 5.3.1
+	jupyter traitlets version 4.3.3
+
+How do we implement this? Some of these are redundant
 
 	python -m pip install jupyterhub
 	python -m pip install notebook
 	python -m pip install jupyterlab
-	python -m pip install jupyter --version==6.4.4
-	python -m pip install jupyter-client==5.3.1
+	python -m pip install jupyter 
+	python -m pip install jupyter --version==6.0.0 # This changes the version of jupyter
+	python -m pip install jupyter-client==5.3.1 # This changes the jupyter_client version
+	jupyter nbextension install --system --py nbgrader
 	jupyter nbextension install --system --py nbgrader --version==0.6.2
 	jupyter nbextension enable nbgrader --py
-	
-	
-Here are ways to query the versions:
+	sudo jupyter serverextension enable --sys-prefix --py nbgrader
+	sudo jupyter serverextension enable --system --py nbgrader
+
+Regardless, it's useful to know the various ways to query the versions:
 
 	python --version
 	jupyter --version
@@ -37,30 +55,6 @@ Here are ways to query the versions:
 	nbgrader --version
 	jupyter nbextension list
 	
-
-These are old notes:
-
-	python -m pip install jupyterhub
-	python -m pip install jupyterlab notebook
-
-	sudo python -m pip install nbgrader
-	sudo nbextension enable --system --py nbgrader
-	sudo jupyter nbextension install --system --py nbgrader
-	sudo jupyter nbextension enable --system --py nbgrader
-	sudo jupyter serverextension enable --system --py nbgrader
-
-	sudo python -m pip install nbgrader
-	sudo python -m pip install --upgrade jupyterthemes
-	sudo python -m pip install jupyter-client==6.1.12
-	sudo jupyter nbextension install --py nbgrader
-	sudo jupyter nbextension install --user —-py nbgrader
-	sudo jupyter nbextension enable nbgrader --py
-	sudo jupyter nbextension enable —-user —-py nbgrader
-	sudo jupyter nbextension enable --system --py nbgrader
-	sudo jupyter serverextension enable --user --py nbgrader
-	sudo jupyter serverextension enable --system --py nbgrader
-	jupyter nbextension list
-
 Setting up nbgrader in an instructor’s account. Create a file, nbgrader_config.py, in two places: the folder where the code will reside, and in the .jupyter folder in the home directory. Contents:
 
 	c = get_config()
@@ -70,22 +64,25 @@ Setting up nbgrader in an instructor’s account. Create a file, nbgrader_config
 	c.NbGrader.logfile = ‘/home/instructor/pchem/logfile.txt'
 	c.ClearSolutions.code_stub = {"python": "# Your code here \n"}
 
-Also set the the folder '/srv/nbgrader/exchange' to wide-open privileges. 
+Also set the the folder '/srv/nbgrader/', '/srv/nbgrader/exchange', and '/srv/nbgrader/exchange/pchem', to wide-open privileges. 
 
-Setting up nbgrader in a student’s account
+Setting up nbgrader in a student’s account. It seems that we only need one configuration file, .jupyter/nbgrader_config.py, containing
+
+	c = get_config()
+	c.CourseDirectory.course_id = “pchem”
+	c.Exchange.root = '/srv/nbgrader/exchange'
 
 After logging on as a student (not sure how much of this is essential); it’s useful to pack this into a script file, like addstudent_nbgrader, if there are a lot of students.
 
 	jupyter nbextension install --user --py nbgrader
 	jupyter nbextension enable nbgrader --user --py
-	jupyter serverextension enable --user --py nbgrader
 	jupyter nbextension disable --user create_assignment/main
 	jupyter nbextension disable --user formgrader/main --section=tree
 	jupyter nbextension disable --user course_list/main --section=tree
+	jupyter serverextension enable --user --py nbgrader
 	jupyter nbextension list
 
-
-Configuring python -- using "sudo" imports for all users (I think)
+Configuring python -- using "sudo" imports for all users
 
 	sudo python -m pip install numpy
 	sudo python -m pip install scipy
@@ -95,7 +92,6 @@ Configuring python -- using "sudo" imports for all users (I think)
 	sudo python -m pip install tables
 	sudo python -m pip install h5io
 	sudo python -m pip install h5py
-
 
 To enable a jupyterhub user (instructor) to be admin
 
@@ -124,7 +120,6 @@ Installing Mayavi. Probably not all the below are necessary.
 	python -m pip install ipyevents
 	jupyter nbextension install --py mayavi --user
 
-
 Launching a notebook from a terminal window
 
 	jupyter notebook
@@ -133,7 +128,6 @@ Launching jupyterhub from a terminal window
 
 	jupyterhub
 
-
 Setting the time. This follows https://archived.forum.manjaro.org/t/howto-get-your-time-timezone-right-using-manjaro-windows-dual-boot/89359
 
 	sudo timedatectl set-local-rtc 0
@@ -141,7 +135,6 @@ Setting the time. This follows https://archived.forum.manjaro.org/t/howto-get-yo
 	find /usr/share/zoneinfo/ -maxdepth 1 -type d
 	ls /usr/share/zoneinfo/America
 	sudo ln -sf /usr/share/zoneinfo/America/Los_Angeles /etc/localtime
-
 
 Auto-starting jupyter notebook. This follows https://arcolinux.com/how-to-autostart-any-application-on-any-linux-desktop/. Add file jupyter.desktop to ~./config/autostart, containing this:
 
@@ -152,7 +145,6 @@ Auto-starting jupyter notebook. This follows https://arcolinux.com/how-to-autost
 	StartupNotify=false
 	Terminal=false
 
-
 Trying to making the scrolling “natural” (this didn’t work, however). This follows https://www.reddit.com/r/ManjaroLinux/comments/bagymb/natural_scrolling_in_manjaro_i3/. Edit /etc/X11/xorg.conf.d/00-touchpad.conf file, adding 
 
 	Section "InputClass"                 
@@ -161,10 +153,33 @@ Trying to making the scrolling “natural” (this didn’t work, however). This
 		...
 	EndSection
 
-
 Reporting the version of python from a notebook
 
 	from platform import python_version
 	print(python_version())
+
+These are old notes:
+
+	python -m pip install jupyterhub
+	python -m pip install jupyterlab notebook
+
+	sudo python -m pip install nbgrader
+	sudo nbextension enable --system --py nbgrader
+	sudo jupyter nbextension install --system --py nbgrader
+	sudo jupyter nbextension enable --system --py nbgrader
+	sudo jupyter serverextension enable --system --py nbgrader
+
+	sudo python -m pip install nbgrader
+	sudo python -m pip install --upgrade jupyterthemes
+	sudo python -m pip install jupyter-client==6.1.12
+	sudo jupyter nbextension install --py nbgrader
+	sudo jupyter nbextension install --user —-py nbgrader
+	sudo jupyter nbextension enable nbgrader --py
+	sudo jupyter nbextension enable —-user —-py nbgrader
+	sudo jupyter nbextension enable --system --py nbgrader
+	sudo jupyter serverextension enable --user --py nbgrader
+	sudo jupyter serverextension enable --system --py nbgrader
+	jupyter nbextension list
+
 
 
