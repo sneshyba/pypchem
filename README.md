@@ -8,45 +8,46 @@ Configuring pip on a Manjaro vm. This follows https://jupyterhub.readthedocs.io/
 	sudo pacman -S npm
 	sudo npm install -g configurable-http-proxy
 
-
 Configuring jupyterhub and jupyter notebook on a Manjaro vm. This follows https://jupyterhub.readthedocs.io/en/stable/quickstart.html.
+
+Then, jupyter and nbgrader installation. But we need a compatible set of versions. Here's one
+
+	python version 3.10.2
+	nbgrader version 0.6.2 
+	jupyter notebook version 6.0.0
+	jupyter client version 5.3.1
+	jupyter traitlets version 4.3.3
+
+How do we implement this?
+
+	python -m pip install jupyterhub
+	python -m pip install jupyter --version==6.4.4
+	python -m pip install jupyter-client==5.3.1
+	python -m pip install notebook
+	python -m pip install jupyterlab
+	python -m pip install jupyter-client==6.1.12
+	jupyter nbextension install --system --py nbgrader --version==0.6.2
+	jupyter nbextension enable nbgrader --py
+	
+	
+Here are ways to query the versions:
+	python --version
+	jupyter --version
+	jupyterhub --version
+	nbgrader --version
+	jupyter nbextension list
+	
+
+These are old notes:
 
 	python -m pip install jupyterhub
 	python -m pip install jupyterlab notebook
-
-
-Configuring python
-
-	python -m pip install numpy
-	python -m pip install scipy
-	python -m pip install sympy
-	python -m pip install matplotlib
-	python -m pip install pint
-	python -m pip install tables
-	python -m pip install h5io
-	python -m pip install h5py
-
-
-Setting up nbgrader in an instructor’s account
-
-Create a file, nbgrader_config.py, in two places: the folder where the code will reside, and in the .jupyter folder in the home directory. Contents:
-
-	c = get_config()
-	c.CourseDirectory.course_id = “pchem”
-	c.CourseDirectory.root = '/home/instructor/pchem’
-	c.Exchange.root = '/srv/nbgrader/exchange'
-	c.NbGrader.logfile = ‘/home/instructor/pchem/logfile.txt'
-	c.ClearSolutions.code_stub = {"python": "# Your code here \n"}
-
-Also set the the folder '/srv/nbgrader/exchange' to wide-open privileges. 
 
 	sudo python -m pip install nbgrader
 	sudo nbextension enable --system --py nbgrader
 	sudo jupyter nbextension install --system --py nbgrader
 	sudo jupyter nbextension enable --system --py nbgrader
 	sudo jupyter serverextension enable --system --py nbgrader
-
-These are old notes:
 
 	sudo python -m pip install nbgrader
 	sudo python -m pip install --upgrade jupyterthemes
@@ -60,7 +61,16 @@ These are old notes:
 	sudo jupyter serverextension enable --system --py nbgrader
 	jupyter nbextension list
 
-	(The jupyter-client line was needed because the default installed version, version 7.1.2, produced an error during nbgrader's "validation" step.)
+Setting up nbgrader in an instructor’s account. Create a file, nbgrader_config.py, in two places: the folder where the code will reside, and in the .jupyter folder in the home directory. Contents:
+
+	c = get_config()
+	c.CourseDirectory.course_id = “pchem”
+	c.CourseDirectory.root = '/home/instructor/pchem’
+	c.Exchange.root = '/srv/nbgrader/exchange'
+	c.NbGrader.logfile = ‘/home/instructor/pchem/logfile.txt'
+	c.ClearSolutions.code_stub = {"python": "# Your code here \n"}
+
+Also set the the folder '/srv/nbgrader/exchange' to wide-open privileges. 
 
 Setting up nbgrader in a student’s account
 
@@ -75,6 +85,16 @@ After logging on as a student (not sure how much of this is essential); it’s u
 	jupyter nbextension list
 
 
+Configuring python
+
+	python -m pip install numpy
+	python -m pip install scipy
+	python -m pip install sympy
+	python -m pip install matplotlib
+	python -m pip install pint
+	python -m pip install tables
+	python -m pip install h5io
+	python -m pip install h5py
 
 
 To enable a jupyterhub user (instructor) to be admin
