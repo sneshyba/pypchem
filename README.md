@@ -110,11 +110,11 @@ To add admin privileges for a user
 
 Processing of student work when you don’t want to use the nbgrader mechanism
 
-	1)	In the course folder (say pchem), create a folder called “submitted”.
-	2)	In submitted, create a folder called “studentx”.
-	3)	Copy the student-submitted zip file “assignment1” into the studentx folder, and unzip it. Now there should be a folder called assignment1.
-	4)	In jupyter, navigate into submitted/studentx/assignment1/ and open the .ipynb file there (presumably, “assignment1.ipynb”), assign grades & make comments.
-	5)	In formgrader/Manage Assignments, press the “Generate Feedback” button. Now there should appear a new folder in pchem called “feedback”. The feedback for each student should be there.
+1. In the course folder (say pchem), create a folder called “submitted”.
+1. In submitted, create a folder called “studentx”.
+1. Copy the student-submitted zip file “assignment1” into the studentx folder, and unzip it. Now there should be a folder called assignment1.
+1. In jupyter, navigate into submitted/studentx/assignment1/ and open the .ipynb file there (presumably, “assignment1.ipynb”), assign grades & make comments.
+1. In formgrader/Manage Assignments, press the “Generate Feedback” button. Now there should appear a new folder in pchem called “feedback”. The feedback for each student should be there.
 
 
 Installing Mayavi. Probably not all the below are necessary.
