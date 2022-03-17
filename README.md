@@ -93,14 +93,14 @@ Configuring python -- using "sudo" imports for all users
 	sudo python -m pip install h5io
 	sudo python -m pip install h5py
 
-Setting up access to jupyterhub from the host via port forwarding
+Setting up access to jupyterhub from the host via port forwarding:
 
-In virtualbox, go to settings/Network/Advanced/Port Forwarding, and enter 8000 in Host Port and Guest Port.
-
-(This seems to be a non-Manjaro command) To enable a jupyterhub user (instructor) to be admin
+	In virtualbox, go to settings/Network/Advanced/Port Forwarding, and enter 8000 in Host Port and Guest Port. Then after you launch jupyterhub, go to your host (laptop or desktop) browser, and enter http://localhost:8000. Log on as instructor.
+	
+	
+To enable a jupyterhub user (instructor) to be admin -- however, this seems to be a non-Manjaro, maybe Ubuntu command
 
 	sudo usermod -a -G jupyter_admins instructor
-
 
 To add admin privileges for a user
 
