@@ -198,7 +198,7 @@ If instead of wanting a single-user jupyter notebook, you want a multi-user jupy
 1. With the VM shut down, go to settings/Network/Advanced/Port Forwarding, and enter 8000 in Host Port and Guest Port.
 2. Use VirtualBox to launch the VM as before.
 3. Once the VM is booted, open a terminal window (icon at the top) as before, but this time enter *sudo jupyterhub*. 
-4. Unlike the *jupyter notebook* command, *sudo jupyterhub* doesn't launch a browser window automatically. Instead, on a browser of the laptop or desktop that is *hosting* your VM, enter http://localhost:8000. You can log on as instructor, or student1.
+4. Unlike the *jupyter notebook* command, *sudo jupyterhub* doesn't launch a browser window automatically. Instead, on a browser of the laptop or desktop that is *hosting* your VM, enter http://localhost:8000 (or just localhost:8000). You can log on as instructor, or student1.
 5. When you're done, press the *quit* button of any browser windows associated with Juptyter. Back on the VM, the terminal window used to launch jupyterhub will still be busy, so you have to enter ctrl-C a couple of times to quit out of it.
 	
 ### Shutting down the VM
