@@ -55,7 +55,7 @@ Regardless, it's useful to know the various ways to query the versions:
 	nbgrader --version
 	jupyter nbextension list
 	
-Setting up nbgrader in an instructor’s account. Create a file, nbgrader_config.py, in two places: the folder where the code will reside, and in the .jupyter folder in the home directory. Contents:
+Setting up nbgrader in an instructor’s account: Create a file, nbgrader_config.py, in two places: the folder where the code will reside, and in the .jupyter folder in the home directory. Contents:
 
 	c = get_config()
 	c.CourseDirectory.course_id = “pchem”
@@ -95,7 +95,9 @@ Configuring python -- using "sudo" imports for all users
 
 Setting up access to jupyterhub from the host via port forwarding:
 
-	In virtualbox, go to settings/Network/Advanced/Port Forwarding, and enter 8000 in Host Port and Guest Port. Then after you launch jupyterhub, go to your host (laptop or desktop) browser, and enter http://localhost:8000. Log on as instructor.
+- In virtualbox, go to settings/Network/Advanced/Port Forwarding, and enter 8000 in Host Port and Guest Port.
+- Launch the VM and, from the VM, launch jupyterhub. 
+- On a browser (on the laptop or desktop, not the VM), enter http://localhost:8000. Log on as instructor.
 	
 	
 To enable a jupyterhub user (instructor) to be admin -- however, this seems to be a non-Manjaro, maybe Ubuntu command
