@@ -189,14 +189,16 @@ Basics for getting a jupyter notebook on a browser window, all within the VM:
 
 1. Download “pchem” from the google folder and de-compress it. This will take almost 25 Gbytes, temporarily; the decompressed file alone is ~16 Gbytes. 
 1. Install VirtualBox (https://www.virtualbox.org/), and then use it to launch the VM: In the VirtualBox GUI, go to Tools/Add, navigate to the pchem folder you just decompressed, and double-click “pchem.vdbox”. A big green arrow launches it.
-1. Once the VM is booted, you’ll find yourself in a Manjaro operating system. Open a terminal window (icon at the top), and enter “jupyter notebook”. That should open up a Firefox window with a jupyter notebook screen.
+1. Once the VM is booted, you’ll find yourself in a Manjaro operating system. Open a terminal window (icon at the top), and enter *jupyter notebook*. That should open up a Firefox window with a jupyter notebook screen. 
+
 
 Setting up access to jupyterhub from the host:
 
 1. In virtualbox, go to settings/Network/Advanced/Port Forwarding, and enter 8000 in Host Port and Guest Port.
-1. Launch the VM and, from the VM, launch jupyterhub, as described above.
-1. On a browser on the laptop or desktop (not the VM), enter http://localhost:8000. Log on as instructor.
+1. Launch the VM and, from the VM, open a terminal window, and enter *sudo jupyterhub*. 
+1. On a browser of the laptop or desktop that is running the VM (i.e., not a browser within the VM), enter http://localhost:8000. You can log on as instructor, or student1.
 	
-
+Shutting down the VM:
+It's best to press the *quit* button of any browser windows associated with Juptyter. If the terminal window used to launch jupyter notebook or jupyterhub is still busy, ctrl-C a couple of times. Then, find an icon that looks like a circle with a vertical line through part of it, on the upper right; it's just to the left of the time/date. Click that and choose *Shutdown*.
 
 
