@@ -189,10 +189,10 @@ Basics for getting a jupyter notebook on a browser window, all within the VM:
 
 1. Download “pchem” from the google folder and de-compress it. This will take almost 25 Gbytes, temporarily; the decompressed file alone is ~16 Gbytes. 
 1. Install VirtualBox (https://www.virtualbox.org/), and then use it to launch the VM: In the VirtualBox GUI, go to Tools/Add, navigate to the pchem folder you just decompressed, and double-click “pchem.vdbox”. A big green arrow launches it.
-1. Once the VM is booted, you’ll find yourself in a Manjaro operating system. Open a terminal window (icon at the top), and enter *jupyter notebook*. That should open up a Firefox window with a jupyter notebook screen. 
+1. Once the VM is booted, you’ll find yourself in a Manjaro operating system. Open a terminal window (icon at the top), and enter *jupyter notebook*. That should open up a Firefox window with a jupyter notebook screen. If instead you enter *sudo jupyterhub*, you'll be able to access jupyter notebooks from a browser on the host machine (see below).
 
 
-Setting up access to jupyterhub from the host:
+Setting up access to jupyterhub from a browser on the host machine:
 
 1. In virtualbox, go to settings/Network/Advanced/Port Forwarding, and enter 8000 in Host Port and Guest Port.
 1. Launch the VM and, from the VM, open a terminal window, and enter *sudo jupyterhub*. 
