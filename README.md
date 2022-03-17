@@ -93,7 +93,11 @@ Configuring python -- using "sudo" imports for all users
 	sudo python -m pip install h5io
 	sudo python -m pip install h5py
 
-To enable a jupyterhub user (instructor) to be admin
+Setting up access to jupyterhub from the host via port forwarding
+
+In virtualbox, go to settings/Network/Advanced/Port Forwarding, and enter 8000 in Host Port and Guest Port.
+
+(This seems to be a non-Manjaro command) To enable a jupyterhub user (instructor) to be admin
 
 	sudo usermod -a -G jupyter_admins instructor
 
@@ -101,7 +105,6 @@ To enable a jupyterhub user (instructor) to be admin
 To add admin privileges for a user
 
 	sudo nano /etc/jupyterhub/jupyterhub_config.py
-
 
 Processing of student work when you don’t want to use the nbgrader mechanism
 
