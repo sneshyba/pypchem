@@ -186,7 +186,7 @@ These are old notes:
 ### Getting the VM up and running on your laptop
 
 1. Download “pchem” from the google folder and de-compress it. This will take almost 25 Gbytes, temporarily; the decompressed file alone is ~16 Gbytes. 
-2. Install VirtualBox (https://www.virtualbox.org/), 
+2. Install VirtualBox (https://www.virtualbox.org/)
 
 ### Running a single-user Jupyter Notebook 
 1. Use VirtualBox to launch the VM: In the VirtualBox GUI, go to Tools/Add, navigate to the pchem folder you just decompressed, and double-click “pchem.vdbox”. A big green arrow launches it.
