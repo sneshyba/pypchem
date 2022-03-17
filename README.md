@@ -35,7 +35,7 @@ Then, jupyter and nbgrader installation. We need a compatible set of versions, a
 
 How do we implement this? Some of these are redundant
 
-	python -m pip install jupyterhub
+	sudo python -m pip install jupyterhub
 	python -m pip install notebook
 	python -m pip install jupyterlab
 	python -m pip install jupyter 
