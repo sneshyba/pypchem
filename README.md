@@ -142,6 +142,8 @@ Auto-starting jupyter notebook. This follows https://arcolinux.com/how-to-autost
 	StartupNotify=false
 	Terminal=false
 
+Auto-starting jupyterhub. 
+
 Trying to making the scrolling “natural” (this didn’t work, however). This follows https://www.reddit.com/r/ManjaroLinux/comments/bagymb/natural_scrolling_in_manjaro_i3/. Edit /etc/X11/xorg.conf.d/00-touchpad.conf file, adding 
 
 	Section "InputClass"                 
@@ -178,7 +180,6 @@ These are old notes:
 	sudo jupyter serverextension enable --system --py nbgrader
 	jupyter nbextension list
 
-
 ## Usage notes
 
 ### Getting the VM up and running on your laptop
@@ -195,23 +196,33 @@ These are old notes:
 If instead of wanting a single-user jupyter notebook, you want a multi-user jupyterhub environment available on your host machine:
 1. With the VM shut down, go to settings/Network/Advanced/Port Forwarding, and enter 8000 in Host Port and Guest Port.
 2. Use VirtualBox to launch the VM as before.
-3. Once the VM is booted, open a terminal window (icon at the top) as before, but this time enter *sudo jupyterhub*. 
+3. Once the VM is booted, open a terminal window (icon at the top) as before, but this time enter *sudo jupyterhub -f /etc/jupyterhub/jupyterhub_config.py*. 
 4. Unlike the *jupyter notebook* command, *sudo jupyterhub* doesn't launch a browser window automatically. Instead, on a browser of the laptop or desktop that is *hosting* your VM, enter http://localhost:8000 (or just localhost:8000). You can log on as instructor, or student1.
 5. When you're done, press the *quit* button of any browser windows associated with Juptyter. Back on the VM, the terminal window used to launch jupyterhub will still be busy, so you have to enter ctrl-C a couple of times to quit out of it.
 
-### Running Jupyterhub with bridge
+### Running Jupyterhub with bridge (launched from the terminal)
 If instead of a multi-user jupyterhub environment available on your host machine, you want it on a local area network:
-1. With the VM shut down, go to settings/Network and choose *Bridged Adapter* to attach to (this overrides the default, NAT). For a name, choose the local Wifi. and enter 8000 in Host Port and Guest Port.
-2. Boot the VM and find out its IP address, using e.g. the command "ip a" in a terminal window. This address will appear something like this (but with numbers for x, y, and z):
-	inet 192.168.x.y/z
-3. Now run jupyterhub:
-	sudo jupyterhub --ip=192.168.x.y (but with the actual numbers)
-7. On a browser of a machine on the LAN, enter http://192.168.x.y:8000/hub/login (or just 192.168.x.y:8000). Now you can log on to jupyter.
+1. With the VM shut down, go to settings/Network and choose *Bridged Adapter* to attach to (this overrides the default, NAT). For a name, choose the local Wifi and enter 8000 in Host Port and Guest Port.
+2. Boot the VM and run jupyterhub:
+	sudo jupyterhub -f /etc/jupyterhub/jupyterhub_config.py --ip=0.0.0.0
+3. Find out the IP address of the VM, using e.g. the command "ip a" in a terminal window. This address will appear something like this (but with numbers for x, y, and z):
+	inet w.x.y.z/...
+7. On a browser of a machine on the LAN, enter http://w.x.y.z:8000/hub/login. Now you can log on to jupyter.
 8. When you're done, press the *quit* button of any browser windows associated with Juptyter. Back on the VM, the terminal window used to launch jupyterhub will still be busy, so you have to enter ctrl-C a couple of times to quit out of it.
 
-### Getting the IP address as a shell variable
-myIP=$(ip a s enp6s0 | awk '/inet / {print$2}'|awk -F'/' '{print $1}')
-echo $myIP
+### Running Jupyterhub with bridge (launched on boot)
+1. Just like step 1 with launching from the terminal: with the VM shut down, choose *Bridged Adapter* to attach to, etc.
+2. On the VM, edit using crontab:
+	sudo EDITOR=nano crontab -e
+3. With crontab, add a line like the one below, with path-to-jupyterhub replaced by something like /home/instructor.local/bin/jupyterhub
+	@reboot path-to-jupyterhub -f /etc/jupyterhub/jupyterhub_config.py --ip=0.0.0.0
+7. On a browser of a machine on the LAN, enter http://w.x.y.z:8000/hub/login. Now you can log on to jupyter.
+8. When you're done, press the *quit* button of any browser windows associated with Juptyter. Back on the VM, the terminal window used to launch jupyterhub will still be busy, so you have to enter ctrl-C a couple of times to quit out of it.
 
 ### Shutting down the VM
 Find an icon that looks like a circle with a vertical line through part of it, on the upper right; it's just to the left of the time/date. Click that and choose *Shutdown*.
+
+### Getting the IP address as a shell variable
+myIP=$(ip a s enp0s3 | awk '/inet / {print$2}'|awk -F'/' '{print $1}')
+echo $myIP
+
