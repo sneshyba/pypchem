@@ -209,5 +209,9 @@ If instead of a multi-user jupyterhub environment available on your host machine
 7. On a browser of a machine on the LAN, enter http://192.168.x.y:8000/hub/login (or just 192.168.x.y:8000). Now you can log on to jupyter.
 8. When you're done, press the *quit* button of any browser windows associated with Juptyter. Back on the VM, the terminal window used to launch jupyterhub will still be busy, so you have to enter ctrl-C a couple of times to quit out of it.
 
+### Getting the IP address as a shell variable
+myIP=$(ip a s enp6s0 | awk '/inet / {print$2}'|awk -F'/' '{print $1}')
+echo $myIP
+
 ### Shutting down the VM
 Find an icon that looks like a circle with a vertical line through part of it, on the upper right; it's just to the left of the time/date. Click that and choose *Shutdown*.
