@@ -203,21 +203,19 @@ If instead of wanting a single-user jupyter notebook, you want a multi-user jupy
 ### Running Jupyterhub with bridge (launched from the terminal)
 If instead of a multi-user jupyterhub environment available on your host machine, you want it on a local area network:
 1. With the VM shut down, go to settings/Network and choose *Bridged Adapter* to attach to (this overrides the default, NAT). For a name, choose the local Wifi and enter 8000 in Host Port and Guest Port.
-2. Boot the VM and run jupyterhub:
-	sudo jupyterhub -f /etc/jupyterhub/jupyterhub_config.py --ip=0.0.0.0
-3. Find out the IP address of the VM, using e.g. the command "ip a" in a terminal window. This address will appear something like this (but with numbers for x, y, and z):
+3. Boot the VM and find out its IP address, using e.g. the command "ip a" in a terminal window. This address will appear something like this (but with numbers for w, x, y, and z):
 	inet w.x.y.z/...
+2. Now run jupyterhub:
+	sudo jupyterhub -f /etc/jupyterhub/jupyterhub_config.py --ip=0.0.0.0
 7. On a browser of a machine on the LAN, enter http://w.x.y.z:8000/hub/login. Now you can log on to jupyter.
 8. When you're done, press the *quit* button of any browser windows associated with Juptyter. Back on the VM, the terminal window used to launch jupyterhub will still be busy, so you have to enter ctrl-C a couple of times to quit out of it.
 
 ### Running Jupyterhub with bridge (launched on boot)
 1. Just like step 1 with launching from the terminal: with the VM shut down, choose *Bridged Adapter* to attach to, etc.
-2. On the VM, edit using crontab:
+2. On the VM, add *@reboot path-to-jupyterhub -f /etc/jupyterhub/jupyterhub_config.py --ip=0.0.0.0* to the boot file, using crontab:
 	sudo EDITOR=nano crontab -e
-3. With crontab, add a line like the one below, with path-to-jupyterhub replaced by something like /home/instructor.local/bin/jupyterhub
-	@reboot path-to-jupyterhub -f /etc/jupyterhub/jupyterhub_config.py --ip=0.0.0.0
-7. On a browser of a machine on the LAN, enter http://w.x.y.z:8000/hub/login. Now you can log on to jupyter.
-8. When you're done, press the *quit* button of any browser windows associated with Juptyter. Back on the VM, the terminal window used to launch jupyterhub will still be busy, so you have to enter ctrl-C a couple of times to quit out of it.
+7. On a browser of a machine on the LAN, enter http://w.x.y.z:8000/hub/login, where the letters correspond to the VM's IP address (see previous item). Now you can log on to jupyter.
+8. When you're done, press the *quit* button of any browser windows associated with Juptyter. 
 
 ### Shutting down the VM
 Find an icon that looks like a circle with a vertical line through part of it, on the upper right; it's just to the left of the time/date. Click that and choose *Shutdown*.
