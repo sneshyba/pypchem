@@ -221,6 +221,6 @@ If instead of a multi-user jupyterhub environment available on your host machine
 Find an icon that looks like a circle with a vertical line through part of it, on the upper right; it's just to the left of the time/date. Click that and choose *Shutdown*.
 
 ### Getting the IP address as a shell variable
-myIP=$(ip a s enp0s3 | awk '/inet / {print$2}'|awk -F'/' '{print $1}')
+myIP=$(ip a s enp0s3 | awk '/inet / {print$2}'|awk -F'/' '{print $1}')  
 echo $myIP
 
