@@ -93,7 +93,6 @@ Configuring python -- using "sudo" imports for all users
 	sudo python -m pip install h5io
 	sudo python -m pip install h5py
 
-	
 To enable a jupyterhub user (instructor) to be admin -- however, this seems to be a non-Manjaro, maybe Ubuntu command
 
 	sudo usermod -a -G jupyter_admins instructor
@@ -109,7 +108,6 @@ Processing of student work when you don’t want to use the nbgrader mechanism
 1. Copy the student-submitted zip file “assignment1” into the studentx folder, and unzip it. Now there should be a folder called assignment1.
 1. In jupyter, navigate into submitted/studentx/assignment1/ and open the .ipynb file there (presumably, “assignment1.ipynb”), assign grades & make comments.
 1. In formgrader/Manage Assignments, press the “Generate Feedback” button. Now there should appear a new folder in pchem called “feedback”. The feedback for each student should be there.
-
 
 Installing Mayavi. Probably not all the below are necessary.
 
@@ -193,13 +191,23 @@ These are old notes:
 2. Once the VM is booted, you’ll find yourself in a Manjaro operating system. Open a terminal window (icon at the top), and enter *jupyter notebook*. That should open up a Firefox window with a jupyter notebook screen. 
 3. When you're done, press the *quit* button of any browser windows associated with Juptyter. If the terminal window used to launch jupyter notebook is still busy, ctrl-C a couple of times. 
 
-### Running Jupyterhub
-If instead of wanting a single-user jupyter notebook, you want a multi-user jupyterhub environment,
+### Running Jupyterhub with port forwarding
+If instead of wanting a single-user jupyter notebook, you want a multi-user jupyterhub environment available on your host machine:
 1. With the VM shut down, go to settings/Network/Advanced/Port Forwarding, and enter 8000 in Host Port and Guest Port.
 2. Use VirtualBox to launch the VM as before.
 3. Once the VM is booted, open a terminal window (icon at the top) as before, but this time enter *sudo jupyterhub*. 
 4. Unlike the *jupyter notebook* command, *sudo jupyterhub* doesn't launch a browser window automatically. Instead, on a browser of the laptop or desktop that is *hosting* your VM, enter http://localhost:8000 (or just localhost:8000). You can log on as instructor, or student1.
 5. When you're done, press the *quit* button of any browser windows associated with Juptyter. Back on the VM, the terminal window used to launch jupyterhub will still be busy, so you have to enter ctrl-C a couple of times to quit out of it.
-	
+
+### Running Jupyterhub with bridge
+If instead of a multi-user jupyterhub environment available on your host machine, you want it on a local area network:
+1. With the VM shut down, go to settings/Network and choose *Bridged Adapter* to attach to (this overrides the default, NAT). For a name, choose the local Wifi. and enter 8000 in Host Port and Guest Port.
+2. Boot the VM and find out its IP address, using e.g. the command "ip a" in a terminal window. This address will appear something like this (but with numbers for x, y, and z):
+	inet 192.168.x.y/z
+3. Now run jupyterhub:
+	sudo jupyterhub --ip=192.168.x.y (but with the actual numbers)
+7. On a browser of a machine on the LAN, enter http://192.168.x.y:8000/hub/login (or just 192.168.x.y:8000). Now you can log on to jupyter.
+8. When you're done, press the *quit* button of any browser windows associated with Juptyter. Back on the VM, the terminal window used to launch jupyterhub will still be busy, so you have to enter ctrl-C a couple of times to quit out of it.
+
 ### Shutting down the VM
 Find an icon that looks like a circle with a vertical line through part of it, on the upper right; it's just to the left of the time/date. Click that and choose *Shutdown*.
