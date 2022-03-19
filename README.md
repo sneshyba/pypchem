@@ -34,7 +34,7 @@ Some of these might be redundant.
 
 *Version compatibility*  
 
-The following versions work -- all default except for jupyter-client version 6.1.1. (I don't understand why the students' notebook version is different from the instructor's version.)
+The following versions work -- all default except for jupyter-client version 6.1.12. I don't understand why the students' notebook version is different from the instructor's version, but it doesn't seem to hurt anything.
 
 	[instructor@instructor-virtualbox ~]$ jupyter --version
 	Selected Jupyter core packages...
