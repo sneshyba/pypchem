@@ -106,7 +106,7 @@ Students need an account on the system,
 
 	sudo useradd student1 -m; sudo passwd student1
 	
-Then, after logging on (as student1 in this case), it's good to get rid of unwanted nbgrader options,
+Then, after logging on (e.g., as student1), it's good to get rid of unwanted nbgrader options,
 
 	jupyter nbextension disable --user create_assignment/main
 	jupyter nbextension disable --user formgrader/main --section=tree
