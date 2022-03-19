@@ -10,6 +10,7 @@ This follows https://jupyterhub.readthedocs.io/en/stable/quickstart.html.
 	sudo pacman -S npm
 	sudo npm install -g configurable-http-proxy
 
+
 *Jupyter and nbgrader installation*  
 
 Some of these might be redundant.
@@ -24,6 +25,7 @@ Some of these might be redundant.
 	sudo jupyter serverextension enable --sys-prefix --py nbgrader
 	sudo jupyter serverextension enable --system --py nbgrader
 
+
 *Querying the installed versions*  
 
 	python --version
@@ -31,6 +33,7 @@ Some of these might be redundant.
 	jupyterhub --version
 	nbgrader --version
 	jupyter nbextension list
+
 
 *Version compatibility*  
 
@@ -68,6 +71,7 @@ The following versions work -- all default except for jupyter-client version 6.1
 	qtconsole        : 5.2.2
 	traitlets        : 4.3.3
 
+
 *Configuring python*  
 
 Using "sudo" imports for all users.
@@ -81,9 +85,11 @@ Using "sudo" imports for all users.
 	sudo python -m pip install h5io
 	sudo python -m pip install h5py
 
+
 *The exchange directory*  
 
 Before setting up nbgrader, it is necessary to loosen the protections of folder '/srv/nbgrader/', '/srv/nbgrader/exchange', and '/srv/nbgrader/exchange/pchem'. I set them to wide-open (777) privileges. 
+
 
 *Setting up nbgrader in the instructor’s account*  
 
@@ -100,6 +106,7 @@ The "course" tab in nbgrader doesn't seem to do much, so to disable it one can u
 
 	jupyter nbextension disable --user course_list/main --section=tree
 
+
 *Setting up nbgrader in student accounts*  
 
 Students need an account on the system,
@@ -114,9 +121,11 @@ Then, after logging on (e.g., as student1), it's good to get rid of unwanted nbg
 
 It seems that student accounts do not require .jupyter/nbgrader_config.py. 
 
+
 *Processing student work with nbgrader using the regular nbgrader pipeline*  
 
 Go to *Formgrader/Collect*, click on the number underneath *Submissions* (if non-zero), and follow the instructions provided.
+
 
 *Processing student work with nbgrader without using the regular nbgrader pipeline*  
 
@@ -136,11 +145,13 @@ If an instructor wants to manually bring student work into the nbgrader environm
 2. Install VirtualBox (https://www.virtualbox.org/)
 3. Use VirtualBox to launch the VM: In the VirtualBox GUI, go to Tools/Add, navigate to the pchem folder you just decompressed, and double-click *pchem.vdbox*. A big green arrow launches it.
 
+
 *Launching jupyter, etc., from the terminal window*  
 
 Once the VM is booted, you’ll find yourself in a Manjaro operating system. Open a terminal window (icon at the top), and enter
 1. *jupyter notebook* to launch just a notebook; a Firefox window with a jupyter notebook screen should open up. When you're done, press the *quit* button of any browser windows associated with Juptyter. If the terminal window used to launch jupyter notebook is still busy, ctrl-C a couple of times. 
 2. *jupyterhub* to launch a single-user version of jupyterhub. You'll have to open a Firefox window and enter localhost.
+
 
 *Running Jupyterhub with port forwarding*  
 
@@ -150,6 +161,7 @@ If instead of wanting a single-user jupyter notebook, you want a multi-user jupy
 3. Once the VM is booted, open a terminal window (icon at the top) as before, but this time enter *sudo jupyterhub -f /etc/jupyterhub/jupyterhub_config.py*. 
 4. Unlike the *jupyter notebook* command, *sudo jupyterhub* doesn't launch a browser window automatically. Instead, on a browser of the laptop or desktop that is *hosting* your VM, enter http://localhost:8000 (or just localhost:8000). You can log on as instructor, or student1.
 5. When you're done, press the *quit* button of any browser windows associated with Juptyter. Back on the VM, the terminal window used to launch jupyterhub will still be busy, so you have to enter ctrl-C a couple of times to quit out of it.
+
 
 *Running Jupyterhub with bridge (launched from the terminal)*  
 
@@ -162,6 +174,7 @@ If instead of a multi-user jupyterhub environment available on your host machine
 7. On a browser of a machine on the LAN, enter http://w.x.y.z:8000/hub/login. Now you can log on to jupyter.
 8. When you're done, press the *quit* button of any browser windows associated with Juptyter. Back on the VM, the terminal window used to launch jupyterhub will still be busy, so you have to enter ctrl-C a couple of times to quit out of it.
 
+
 *Running Jupyterhub with bridge (launched on boot)*  
 
 1. Just like step 1 with launching from the terminal: with the VM shut down, choose *Bridged Adapter* to attach to, etc.
@@ -169,6 +182,7 @@ If instead of a multi-user jupyterhub environment available on your host machine
 	sudo EDITOR=nano crontab -e
 7. On a browser of a machine on the LAN, enter http://w.x.y.z:8000/hub/login, where the letters correspond to the VM's IP address (see previous item). Now you can log on to jupyter.
 8. When you're done, press the *quit* button of any browser windows associated with Juptyter. 
+
 
 *Shutting down the VM*  
 
@@ -181,6 +195,7 @@ Find an icon that looks like a circle with a vertical line through part of it, o
 myIP=$(ip a s enp0s3 | awk '/inet / {print$2}'|awk -F'/' '{print $1}')  
 echo $myIP
 
+
 *Installing Mayavi*  
 
 Probably not all the below are necessary.
@@ -190,6 +205,7 @@ Probably not all the below are necessary.
 	python -m pip install ipywidgets
 	python -m pip install ipyevents
 	jupyter nbextension install --py mayavi --user
+
 
 *Trying to making the scrolling “natural” (this didn’t work, however)*  
 
@@ -201,6 +217,7 @@ This follows https://www.reddit.com/r/ManjaroLinux/comments/bagymb/natural_scrol
 		...
 	EndSection
 
+
 *Setting the time*  
 
 This follows https://archived.forum.manjaro.org/t/howto-get-your-time-timezone-right-using-manjaro-windows-dual-boot/89359
@@ -210,6 +227,7 @@ This follows https://archived.forum.manjaro.org/t/howto-get-your-time-timezone-r
 	find /usr/share/zoneinfo/ -maxdepth 1 -type d
 	ls /usr/share/zoneinfo/America
 	sudo ln -sf /usr/share/zoneinfo/America/Los_Angeles /etc/localtime
+
 
 *Auto-starting jupyter notebook*  
 
@@ -221,6 +239,7 @@ This follows https://arcolinux.com/how-to-autostart-any-application-on-any-linux
 	Exec=jupyter notebook
 	StartupNotify=false
 	Terminal=false
+
 
 *Reporting the version of python from a notebook*  
 
