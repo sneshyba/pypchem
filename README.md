@@ -114,7 +114,11 @@ Then, after logging on (e.g., as student1), it's good to get rid of unwanted nbg
 
 It seems that student accounts do not require .jupyter/nbgrader_config.py. 
 
-*Processing student work with nbgrader*  
+*Processing student work with nbgrader using the regular nbgrader pipeline*  
+
+Go to *Formgrader/Collect*, click on the number underneath *Submissions* (if non-zero), and follow the instructions provided.
+
+*Processing student work with nbgrader without using the regular nbgrader pipeline*  
 
 If an instructor wants to manually bring student work into the nbgrader environment (instead of using the regular nbgrader pipeline),
 
