@@ -116,36 +116,13 @@ It seems that student accounts do not require .jupyter/nbgrader_config.py.
 
 *Processing student work with nbgrader*  
 
+If an instructor wants to manually bring student work into the nbgrader environment (instead of using the regular nbgrader pipeline),
+
 1. In the course folder (say pchem), create a folder called “submitted”.
 1. In submitted, create a folder called “studentx”.
 1. Copy the student-submitted zip file “assignment1” into the studentx folder, and unzip it. Now there should be a folder called assignment1.
 1. In jupyter, navigate into submitted/studentx/assignment1/ and open the .ipynb file there (presumably, “assignment1.ipynb”), assign grades & make comments.
 1. In formgrader/Manage Assignments, press the “Generate Feedback” button. Now there should appear a new folder in pchem called “feedback”. The feedback for each student should be there.
-
-*Setting the time*  
-
-This follows https://archived.forum.manjaro.org/t/howto-get-your-time-timezone-right-using-manjaro-windows-dual-boot/89359
-
-	sudo timedatectl set-local-rtc 0
-	sudo systemctl enable --now systemd-timesyncd
-	find /usr/share/zoneinfo/ -maxdepth 1 -type d
-	ls /usr/share/zoneinfo/America
-	sudo ln -sf /usr/share/zoneinfo/America/Los_Angeles /etc/localtime
-
-*Auto-starting jupyter notebook*  
-This follows https://arcolinux.com/how-to-autostart-any-application-on-any-linux-desktop/. Add file jupyter.desktop to ~./config/autostart, containing this:
-
-	[Desktop Entry]
-	Type=Application
-	Name=jupyter
-	Exec=jupyter notebook
-	StartupNotify=false
-	Terminal=false
-
-*Reporting the version of python from a notebook*  
-
-	from platform import python_version
-	print(python_version())
 
 ## Other notes
 
@@ -217,3 +194,30 @@ This follows https://www.reddit.com/r/ManjaroLinux/comments/bagymb/natural_scrol
 		Option "Natural Scrolling" "true"
 		...
 	EndSection
+
+*Setting the time*  
+
+This follows https://archived.forum.manjaro.org/t/howto-get-your-time-timezone-right-using-manjaro-windows-dual-boot/89359
+
+	sudo timedatectl set-local-rtc 0
+	sudo systemctl enable --now systemd-timesyncd
+	find /usr/share/zoneinfo/ -maxdepth 1 -type d
+	ls /usr/share/zoneinfo/America
+	sudo ln -sf /usr/share/zoneinfo/America/Los_Angeles /etc/localtime
+
+*Auto-starting jupyter notebook*  
+
+This follows https://arcolinux.com/how-to-autostart-any-application-on-any-linux-desktop/. Add file jupyter.desktop to ~./config/autostart, containing this:
+
+	[Desktop Entry]
+	Type=Application
+	Name=jupyter
+	Exec=jupyter notebook
+	StartupNotify=false
+	Terminal=false
+
+*Reporting the version of python from a notebook*  
+
+	from platform import python_version
+	print(python_version())
+
