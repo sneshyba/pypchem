@@ -2,13 +2,17 @@
 Python code for use in courses in Physical Chemistry
 
 ## Installation Notes
-*Configuring pip on a Manjaro vm*. This follows https://jupyterhub.readthedocs.io/en/stable/quickstart.html.
+*Configuring pip on a Manjaro vm*  
+
+This follows https://jupyterhub.readthedocs.io/en/stable/quickstart.html.
 
 	sudo pacman -Syu python-pip
 	sudo pacman -S npm
 	sudo npm install -g configurable-http-proxy
 
-*Jupyter and nbgrader installation*. Some of these might be redundant.
+*Jupyter and nbgrader installation*  
+
+Some of these might be redundant.
 
 	sudo python -m pip install jupyterhub
 	python -m pip install notebook
@@ -20,7 +24,7 @@ Python code for use in courses in Physical Chemistry
 	sudo jupyter serverextension enable --sys-prefix --py nbgrader
 	sudo jupyter serverextension enable --system --py nbgrader
 
-*Querying the installed versions*.
+*Querying the installed versions*  
 
 	python --version
 	jupyter --version
@@ -28,7 +32,9 @@ Python code for use in courses in Physical Chemistry
 	nbgrader --version
 	jupyter nbextension list
 
-*Version compatibility*. The following versions work -- all default except for jupyter-client version 6.1.1. (I don't understand why the students' notebook version is different from the instructor's version.)
+*Version compatibility*  
+
+The following versions work -- all default except for jupyter-client version 6.1.1. (I don't understand why the students' notebook version is different from the instructor's version.)
 
 	[instructor@instructor-virtualbox ~]$ jupyter --version
 	Selected Jupyter core packages...
@@ -62,7 +68,9 @@ Python code for use in courses in Physical Chemistry
 	qtconsole        : 5.2.2
 	traitlets        : 4.3.3
 
-*Configuring python*. Using "sudo" imports for all users.
+*Configuring python*  
+
+Using "sudo" imports for all users.
 
 	sudo python -m pip install numpy
 	sudo python -m pip install scipy
@@ -73,9 +81,13 @@ Python code for use in courses in Physical Chemistry
 	sudo python -m pip install h5io
 	sudo python -m pip install h5py
 
-*The exchange directory*. Before setting up nbgrader, it is necessary to loosen the protections of folder '/srv/nbgrader/', '/srv/nbgrader/exchange', and '/srv/nbgrader/exchange/pchem'. I set them to wide-open (777) privileges. 
+*The exchange directory*  
 
-*Setting up nbgrader in the instructor’s account.* Create a file, nbgrader_config.py, in two places: the folder where the code will reside, and in the .jupyter folder in the home directory. Contents of both should be something along the lines of
+Before setting up nbgrader, it is necessary to loosen the protections of folder '/srv/nbgrader/', '/srv/nbgrader/exchange', and '/srv/nbgrader/exchange/pchem'. I set them to wide-open (777) privileges. 
+
+*Setting up nbgrader in the instructor’s account*  
+
+Create a file, nbgrader_config.py, in two places: the folder where the code will reside, and in the .jupyter folder in the home directory. Contents of both should be something along the lines of
 
 	c = get_config()
 	c.CourseDirectory.course_id = “pchem”
@@ -84,7 +96,9 @@ Python code for use in courses in Physical Chemistry
 	c.NbGrader.logfile = ‘/home/instructor/pchem/logfile.txt'
 	c.ClearSolutions.code_stub = {"python": "# Your code here \n"}
 
-*Setting up nbgrader in student accounts.* Students need an account on the system,
+*Setting up nbgrader in student accounts*  
+
+Students need an account on the system,
 
 	sudo useradd student1 -m; sudo passwd student1
 	
@@ -96,7 +110,7 @@ Then, after logging on (as student1 in this case), it's good to get rid of unwan
 
 It seems that student accounts do not require .jupyter/nbgrader_config.py. 
 
-*Processing student work with nbgrader.*
+*Processing student work with nbgrader*  
 
 1. In the course folder (say pchem), create a folder called “submitted”.
 1. In submitted, create a folder called “studentx”.
@@ -104,7 +118,9 @@ It seems that student accounts do not require .jupyter/nbgrader_config.py.
 1. In jupyter, navigate into submitted/studentx/assignment1/ and open the .ipynb file there (presumably, “assignment1.ipynb”), assign grades & make comments.
 1. In formgrader/Manage Assignments, press the “Generate Feedback” button. Now there should appear a new folder in pchem called “feedback”. The feedback for each student should be there.
 
-*Setting the time.* This follows https://archived.forum.manjaro.org/t/howto-get-your-time-timezone-right-using-manjaro-windows-dual-boot/89359
+*Setting the time*  
+
+This follows https://archived.forum.manjaro.org/t/howto-get-your-time-timezone-right-using-manjaro-windows-dual-boot/89359
 
 	sudo timedatectl set-local-rtc 0
 	sudo systemctl enable --now systemd-timesyncd
@@ -112,7 +128,8 @@ It seems that student accounts do not require .jupyter/nbgrader_config.py.
 	ls /usr/share/zoneinfo/America
 	sudo ln -sf /usr/share/zoneinfo/America/Los_Angeles /etc/localtime
 
-*Auto-starting jupyter notebook.* This follows https://arcolinux.com/how-to-autostart-any-application-on-any-linux-desktop/. Add file jupyter.desktop to ~./config/autostart, containing this:
+*Auto-starting jupyter notebook*  
+This follows https://arcolinux.com/how-to-autostart-any-application-on-any-linux-desktop/. Add file jupyter.desktop to ~./config/autostart, containing this:
 
 	[Desktop Entry]
 	Type=Application
@@ -121,24 +138,27 @@ It seems that student accounts do not require .jupyter/nbgrader_config.py.
 	StartupNotify=false
 	Terminal=false
 
-*Reporting the version of python from a notebook.*
+*Reporting the version of python from a notebook*  
 
 	from platform import python_version
 	print(python_version())
 
 ## Other notes
 
-*Getting the VM*
+*Getting the VM*  
+
 1. Download “pchem” from the google folder and de-compress it. This will take almost 25 Gbytes, temporarily; the decompressed file alone is ~16 Gbytes. 
 2. Install VirtualBox (https://www.virtualbox.org/)
 3. Use VirtualBox to launch the VM: In the VirtualBox GUI, go to Tools/Add, navigate to the pchem folder you just decompressed, and double-click *pchem.vdbox*. A big green arrow launches it.
 
-*Launching jupyter, etc., from the terminal window*
+*Launching jupyter, etc., from the terminal window*  
+
 Once the VM is booted, you’ll find yourself in a Manjaro operating system. Open a terminal window (icon at the top), and enter
 1. *jupyter notebook* to launch just a notebook; a Firefox window with a jupyter notebook screen should open up. When you're done, press the *quit* button of any browser windows associated with Juptyter. If the terminal window used to launch jupyter notebook is still busy, ctrl-C a couple of times. 
 2. *jupyterhub* to launch a single-user version of jupyterhub. You'll have to open a Firefox window and enter localhost.
 
 *Running Jupyterhub with port forwarding*  
+
 If instead of wanting a single-user jupyter notebook, you want a multi-user jupyterhub environment available on your host machine:
 1. With the VM shut down, go to settings/Network/Advanced/Port Forwarding, and enter 8000 in Host Port and Guest Port.
 2. Use VirtualBox to launch the VM as before.
@@ -147,6 +167,7 @@ If instead of wanting a single-user jupyter notebook, you want a multi-user jupy
 5. When you're done, press the *quit* button of any browser windows associated with Juptyter. Back on the VM, the terminal window used to launch jupyterhub will still be busy, so you have to enter ctrl-C a couple of times to quit out of it.
 
 *Running Jupyterhub with bridge (launched from the terminal)*  
+
 If instead of a multi-user jupyterhub environment available on your host machine, you want it on a local area network:
 1. With the VM shut down, go to settings/Network and choose *Bridged Adapter* to attach to (this overrides the default, NAT). For a name, choose the local Wifi and enter 8000 in Host Port and Guest Port.
 3. Boot the VM and find out its IP address, using e.g. the command "ip a" in a terminal window. This address will appear something like this (but with numbers for w, x, y, and z):
@@ -157,6 +178,7 @@ If instead of a multi-user jupyterhub environment available on your host machine
 8. When you're done, press the *quit* button of any browser windows associated with Juptyter. Back on the VM, the terminal window used to launch jupyterhub will still be busy, so you have to enter ctrl-C a couple of times to quit out of it.
 
 *Running Jupyterhub with bridge (launched on boot)*  
+
 1. Just like step 1 with launching from the terminal: with the VM shut down, choose *Bridged Adapter* to attach to, etc.
 2. On the VM, add *@reboot path-to-jupyterhub -f /etc/jupyterhub/jupyterhub_config.py --ip=0.0.0.0* to the boot file, using crontab:
 	sudo EDITOR=nano crontab -e
@@ -164,13 +186,17 @@ If instead of a multi-user jupyterhub environment available on your host machine
 8. When you're done, press the *quit* button of any browser windows associated with Juptyter. 
 
 *Shutting down the VM*  
+
 Find an icon that looks like a circle with a vertical line through part of it, on the upper right; it's just to the left of the time/date. Click that and choose *Shutdown*.
 
 *Getting the IP address as a shell variable*  
+
 myIP=$(ip a s enp0s3 | awk '/inet / {print$2}'|awk -F'/' '{print $1}')  
 echo $myIP
 
-*Installing Mayavi. Probably not all the below are necessary*  
+*Installing Mayavi*  
+
+Probably not all the below are necessary.
 
 	python -m pip install vtk
 	python -m pip install mayavi
@@ -179,6 +205,7 @@ echo $myIP
 	jupyter nbextension install --py mayavi --user
 
 *Trying to making the scrolling “natural” (this didn’t work, however)*  
+
 This follows https://www.reddit.com/r/ManjaroLinux/comments/bagymb/natural_scrolling_in_manjaro_i3/. Edit /etc/X11/xorg.conf.d/00-touchpad.conf file, adding 
 
 	Section "InputClass"                 
