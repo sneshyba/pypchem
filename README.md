@@ -174,7 +174,7 @@ If instead of a multi-user jupyterhub environment available on your host machine
 
 Find an icon that looks like a circle with a vertical line through part of it, on the upper right; it's just to the left of the time/date. Click that and choose *Shutdown*.
 
-### Other notes
+## Other notes
 
 *Getting the IP address as a shell variable*  
 
