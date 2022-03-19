@@ -96,6 +96,10 @@ Create a file, nbgrader_config.py, in two places: the folder where the code will
 	c.NbGrader.logfile = ‘/home/instructor/pchem/logfile.txt'
 	c.ClearSolutions.code_stub = {"python": "# Your code here \n"}
 
+The "course" tab in nbgrader doesn't seem to do much, so to disable it one can use
+
+	jupyter nbextension disable --user course_list/main --section=tree
+
 *Setting up nbgrader in student accounts*  
 
 Students need an account on the system,
