@@ -10,39 +10,14 @@ Configuring pip on a Manjaro vm. This follows https://jupyterhub.readthedocs.io/
 
 Configuring jupyterhub and jupyter notebook on a Manjaro vm. This follows https://jupyterhub.readthedocs.io/en/stable/quickstart.html.
 
-Then, jupyter and nbgrader installation. We need a compatible set of versions, and it would be best if the versions were all the same (instructor and students), but there seems to be considerable flexibility here. For example, this actually works:
-
-	The instructor:
-	python version 3.10.2
-	nbgrader version 0.6.2 
-	jupyter notebook version 6.0.0
-	jupyter_client version 6.1.12
-	jupyter traitlets version 4.3.3
-
-	Student1:
-	python version 3.10.2
-	nbgrader version 0.6.2 
-	jupyter notebook version 6.4.10
-	jupyter_client version 6.1.12
-	jupyter traitlets version 4.3.3
-
-	student2:
-	python version 3.10.2
-	nbgrader version 0.6.2 
-	jupyter notebook version 6.4.10
-	jupyter_client version 5.3.1
-	jupyter traitlets version 4.3.3
-
-How do we implement this? Some of these are redundant
+Then, jupyter and nbgrader installation. Some of these are redundant
 
 	sudo python -m pip install jupyterhub
 	python -m pip install notebook
 	python -m pip install jupyterlab
 	python -m pip install jupyter 
-	python -m pip install jupyter --version==6.0.0 # This changes the version of jupyter
-	python -m pip install jupyter-client==5.3.1 # This changes the jupyter_client version
+	sudo python -m pip install jupyter-client==6.1.12 # This changes the jupyter_client version
 	jupyter nbextension install --system --py nbgrader
-	jupyter nbextension install --system --py nbgrader --version==0.6.2
 	jupyter nbextension enable nbgrader --py
 	sudo jupyter serverextension enable --sys-prefix --py nbgrader
 	sudo jupyter serverextension enable --system --py nbgrader
@@ -54,8 +29,42 @@ Regardless, it's useful to know the various ways to query the versions:
 	jupyterhub --version
 	nbgrader --version
 	jupyter nbextension list
-	
-Setting up nbgrader in an instructor’s account: Create a file, nbgrader_config.py, in two places: the folder where the code will reside, and in the .jupyter folder in the home directory. Contents:
+
+We need a compatible set of versions. The following works (although I don't understand why the notebook version is different for instructor than for the student).
+
+	[instructor@instructor-virtualbox ~]$ jupyter --version
+	Selected Jupyter core packages...
+	IPython          : 7.32.0
+	ipykernel        : 6.4.2
+	ipywidgets       : 7.6.5
+	jupyter_client   : 6.1.12
+	jupyter_core     : 4.9.2
+	jupyter_server   : 1.15.4
+	jupyterlab       : 3.3.2
+	nbclient         : not installed
+	nbconvert        : 5.6.1
+	nbformat         : 5.2.0
+	notebook         : 6.0.0
+	qtconsole        : 5.2.2
+	traitlets        : 4.3.3
+
+	[student4@instructor-virtualbox ~]$ jupyter --version
+	Selected Jupyter core packages...
+	IPython          : 7.32.0
+	ipykernel        : 6.4.2
+	ipywidgets       : 7.6.5
+	jupyter_client   : 6.1.12
+	jupyter_core     : 4.9.2
+	jupyter_server   : not installed
+	jupyterlab       : not installed
+	nbclient         : not installed
+	nbconvert        : 5.6.1
+	nbformat         : 5.2.0
+	notebook         : 6.4.10
+	qtconsole        : 5.2.2
+	traitlets        : 4.3.3
+
+Setting up nbgrader in the instructor’s account: Create a file, nbgrader_config.py, in two places: the folder where the code will reside, and in the .jupyter folder in the home directory. Contents:
 
 	c = get_config()
 	c.CourseDirectory.course_id = “pchem”
@@ -66,21 +75,16 @@ Setting up nbgrader in an instructor’s account: Create a file, nbgrader_config
 
 Also set the the folder '/srv/nbgrader/', '/srv/nbgrader/exchange', and '/srv/nbgrader/exchange/pchem', to wide-open privileges. 
 
-Setting up nbgrader in a student’s account. It seems that we only need one configuration file, .jupyter/nbgrader_config.py, containing
+Setting up nbgrader in a student’s account. It appears that the student just needs to be added as a system user, e.g.,
 
-	c = get_config()
-	c.CourseDirectory.course_id = “pchem”
-	c.Exchange.root = '/srv/nbgrader/exchange'
+	sudo useradd student3 -m
+	sudo passwd student3
 
-After logging on as a student (not sure how much of this is essential); it’s useful to pack this into a script file, like addstudent_nbgrader, if there are a lot of students.
+It seems that .jupyter/nbgrader_config.py is not needed. However, after logging on as a student, it's good to get rid of unwanted nbgrader options,
 
-	jupyter nbextension install --user --py nbgrader
-	jupyter nbextension enable nbgrader --user --py
 	jupyter nbextension disable --user create_assignment/main
 	jupyter nbextension disable --user formgrader/main --section=tree
 	jupyter nbextension disable --user course_list/main --section=tree
-	jupyter serverextension enable --user --py nbgrader
-	jupyter nbextension list
 
 Configuring python -- using "sudo" imports for all users
 
@@ -92,14 +96,6 @@ Configuring python -- using "sudo" imports for all users
 	sudo python -m pip install tables
 	sudo python -m pip install h5io
 	sudo python -m pip install h5py
-
-To enable a jupyterhub user (instructor) to be admin -- however, this seems to be a non-Manjaro, maybe Ubuntu command
-
-	sudo usermod -a -G jupyter_admins instructor
-
-To add admin privileges for a user
-
-	sudo nano /etc/jupyterhub/jupyterhub_config.py
 
 Processing of student work when you don’t want to use the nbgrader mechanism
 
@@ -142,8 +138,6 @@ Auto-starting jupyter notebook. This follows https://arcolinux.com/how-to-autost
 	StartupNotify=false
 	Terminal=false
 
-Auto-starting jupyterhub. 
-
 Trying to making the scrolling “natural” (this didn’t work, however). This follows https://www.reddit.com/r/ManjaroLinux/comments/bagymb/natural_scrolling_in_manjaro_i3/. Edit /etc/X11/xorg.conf.d/00-touchpad.conf file, adding 
 
 	Section "InputClass"                 
@@ -156,29 +150,6 @@ Reporting the version of python from a notebook
 
 	from platform import python_version
 	print(python_version())
-
-These are old notes:
-
-	python -m pip install jupyterhub
-	python -m pip install jupyterlab notebook
-
-	sudo python -m pip install nbgrader
-	sudo nbextension enable --system --py nbgrader
-	sudo jupyter nbextension install --system --py nbgrader
-	sudo jupyter nbextension enable --system --py nbgrader
-	sudo jupyter serverextension enable --system --py nbgrader
-
-	sudo python -m pip install nbgrader
-	sudo python -m pip install --upgrade jupyterthemes
-	sudo python -m pip install jupyter-client==6.1.12
-	sudo jupyter nbextension install --py nbgrader
-	sudo jupyter nbextension install --user —-py nbgrader
-	sudo jupyter nbextension enable nbgrader --py
-	sudo jupyter nbextension enable —-user —-py nbgrader
-	sudo jupyter nbextension enable --system --py nbgrader
-	sudo jupyter serverextension enable --user --py nbgrader
-	sudo jupyter serverextension enable --system --py nbgrader
-	jupyter nbextension list
 
 ## Usage notes
 
