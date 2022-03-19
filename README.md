@@ -124,7 +124,7 @@ If an instructor wants to manually bring student work into the nbgrader environm
 1. In jupyter, navigate into submitted/studentx/assignment1/ and open the .ipynb file there (presumably, “assignment1.ipynb”), assign grades & make comments.
 1. In formgrader/Manage Assignments, press the “Generate Feedback” button. Now there should appear a new folder in pchem called “feedback”. The feedback for each student should be there.
 
-## Other notes
+## VM-specific notes
 
 *Getting the VM*  
 
@@ -169,6 +169,8 @@ If instead of a multi-user jupyterhub environment available on your host machine
 *Shutting down the VM*  
 
 Find an icon that looks like a circle with a vertical line through part of it, on the upper right; it's just to the left of the time/date. Click that and choose *Shutdown*.
+
+### Other notes
 
 *Getting the IP address as a shell variable*  
 
