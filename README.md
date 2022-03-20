@@ -166,7 +166,7 @@ If instead of wanting a single-user jupyter notebook, you want a multi-user jupy
 *Running Jupyterhub with bridge (autoboot previously set up)*  
 
 The following steps are for when autoboot has already been set up; for system commands that do that setting up, see the next item.
-1. With the VM shut down, go to settings/Network and choose *Bridged Adapter* to attach to (this overrides the default, NAT). For a name, choose the local Wifi and enter 8000 in Host Port and Guest Port. Then boot the VM and make a note of its IP address, using e.g. the command "ip a" in a terminal window. This address will appear something like *inet w.x.y.z/...* (but with numbers for w, x, y, and z). 
+1. With the VM shut down, go to settings/Network and choose *Bridged Adapter* to attach to (this overrides the default, NAT). For a name, choose the local Wifi (or enp0s25 on the 7610) and enter 8000 in Host Port and Guest Port. Then boot the VM and make a note of its IP address, using e.g. the command "ip a" in a terminal window. This address will appear something like *inet w.x.y.z/...* (but with numbers for w, x, y, and z). 
 4. On a browser of a machine on the LAN, enter http://w.x.y.z:8000/hub/login, where the letters correspond to the VM's IP address you made a note of before, and follow the prompts. 
 5. When you're done, press the *quit* button of any browser windows associated with Juptyter. 
 
