@@ -244,7 +244,7 @@ This follows https://archived.forum.manjaro.org/t/howto-get-your-time-timezone-r
 	sudo ln -sf /usr/share/zoneinfo/America/Los_Angeles /etc/localtime
 
 
-*Auto-starting jupyter notebook*  
+*Auto-starting jupyter notebook on login*  
 This follows https://arcolinux.com/how-to-autostart-any-application-on-any-linux-desktop/. Add file jupyter.desktop to ~./config/autostart, containing this:
 
 	[Desktop Entry]
