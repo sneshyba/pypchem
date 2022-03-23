@@ -204,6 +204,10 @@ The "&" makes this a detached process, so one can log off th host and the VM wil
 *Shutting down a detached VM*
 - If Jupyterhub is running, then log on to it, open a terminal window from there, and say
 
+
+	VBoxHeadless --startvm pchem &
+	
+
  	sudo shutdown now
 
 - If Jupyterhub is not available, then one can shut down the "headless" process using top on the host.
