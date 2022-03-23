@@ -3,7 +3,6 @@ Python code for use in courses in Physical Chemistry
 
 ## Installation Notes
 *Configuring pip on a Manjaro vm*  
-
 This follows https://jupyterhub.readthedocs.io/en/stable/quickstart.html.
 
 	sudo pacman -Syu python-pip
@@ -12,7 +11,6 @@ This follows https://jupyterhub.readthedocs.io/en/stable/quickstart.html.
 
 
 *Jupyter and nbgrader installation*  
-
 Some of these might be redundant.
 
 	sudo python -m pip install jupyterhub
@@ -27,7 +25,6 @@ Some of these might be redundant.
 
 
 *Querying the installed versions*  
-
 	python --version
 	jupyter --version
 	jupyterhub --version
@@ -36,7 +33,6 @@ Some of these might be redundant.
 
 
 *Version compatibility*  
-
 The following versions work -- all default except for jupyter-client version 6.1.12. I don't understand why the students' notebook version is different from the instructor's version, but it doesn't seem to hurt anything.
 
 	[instructor@instructor-virtualbox ~]$ jupyter --version
@@ -73,7 +69,6 @@ The following versions work -- all default except for jupyter-client version 6.1
 
 
 *Configuring python*  
-
 Using "sudo" imports for all users.
 
 	sudo python -m pip install numpy
@@ -87,7 +82,6 @@ Using "sudo" imports for all users.
 
 
 *The exchange directory*  
-
 Before setting up nbgrader, it is necessary to loosen the protections of folder '/srv/nbgrader/', '/srv/nbgrader/exchange', and '/srv/nbgrader/exchange/pchem'. I set them to wide-open (777) privileges. 
 
 
@@ -108,7 +102,6 @@ The "course" tab in nbgrader doesn't seem to do much, so to disable it one can u
 
 
 *Setting up nbgrader in student accounts*  
-
 Students need an account on the system,
 
 	sudo useradd student1 -m; sudo passwd student1
@@ -123,12 +116,10 @@ It seems that student accounts do not require .jupyter/nbgrader_config.py.
 
 
 *Processing student work with nbgrader using the regular nbgrader pipeline*  
-
 Go to *Formgrader/Collect*, click on the number underneath *Submissions* (if non-zero), and follow the instructions provided.
 
 
 *Processing student work with nbgrader without using the regular nbgrader pipeline*  
-
 If an instructor wants to manually bring student work into the nbgrader environment (instead of using the regular nbgrader pipeline),
 
 1. In the course folder (say pchem), create a folder called “submitted”.
@@ -140,21 +131,18 @@ If an instructor wants to manually bring student work into the nbgrader environm
 ## VM-specific notes
 
 *Getting the VM*  
-
 1. Download “pchem” from the google folder and de-compress it. This will take almost 25 Gbytes, temporarily; the decompressed file alone is ~16 Gbytes. 
 2. Install VirtualBox (https://www.virtualbox.org/)
 3. Use VirtualBox to launch the VM: In the VirtualBox GUI, go to Tools/Add, navigate to the pchem folder you just decompressed, and double-click *pchem.vdbox*. A big green arrow launches it.
 
 
 *Launching jupyter, etc., from the terminal window*  
-
 Once the VM is booted, you’ll find yourself in a Manjaro operating system. Open a terminal window (icon at the top), and enter
 1. *jupyter notebook* to launch just a notebook; a Firefox window with a jupyter notebook screen should open up. When you're done, press the *quit* button of any browser windows associated with Juptyter. If the terminal window used to launch jupyter notebook is still busy, ctrl-C a couple of times. 
 2. *jupyterhub* to launch a single-user version of jupyterhub. You'll have to open a Firefox window and enter localhost.
 
 
 *Running Jupyterhub with port forwarding*  
-
 If instead of wanting a single-user jupyter notebook, you want a multi-user jupyterhub environment available on your host machine:
 1. With the VM shut down, go to settings/Network/Advanced/Port Forwarding, and enter 8000 in Host Port and Guest Port.
 2. Use VirtualBox to launch the VM as before.
@@ -164,7 +152,6 @@ If instead of wanting a single-user jupyter notebook, you want a multi-user jupy
 
 
 *Running Jupyterhub with bridge (autoboot not previously set up)*
-
 The following steps are for when autoboot has not already been set up; you'll see that there's a lot in common with the autoboot process, but with two additional steps.
 1. With the VM shut down, go to settings/Network and choose *Bridged Adapter* to attach to (this overrides the default, NAT). For a name, choose the local Wifi (or enp0s25 on the 7610). Then boot the VM and make a note of its IP address, using e.g. the command "ip a" in a terminal window. This address will appear something like *inet w.x.y.z/...* (but with numbers for w, x, y, and z). 
 1. Launch Jupyterhub from a VM terminal window using
@@ -175,14 +162,12 @@ The following steps are for when autoboot has not already been set up; you'll se
 
 
 *Setting up autoboot* 
-
 In the VM, one adds the line *@reboot path-to-jupyterhub -f /etc/jupyterhub/jupyterhub_config.py --ip=0.0.0.0* to the boot file, using crontab:
 
 	sudo EDITOR=nano crontab -e
 
 
 *Running Jupyterhub with bridge (autoboot previously set up)*  
-
 The following steps are for when autoboot has already been set up; for system commands that do that setting up, see the next item.
 1. With the VM shut down, go to settings/Network and choose *Bridged Adapter* to attach to (this overrides the default, NAT). For a name, choose the local Wifi (or enp0s25 on the 7610). Then boot the VM and make a note of its IP address, using e.g. the command "ip a" in a terminal window. This address will appear something like *inet w.x.y.z/...* (but with numbers for w, x, y, and z). 
 4. On a browser of a machine on the LAN, enter http://w.x.y.z:8000/hub/login, where the letters correspond to the VM's IP address you made a note of before, and follow the prompts. 
@@ -202,7 +187,6 @@ This is based on https://superuser.com/questions/135498/run-virtualbox-in-backgr
 The "&" makes this a detached process, so one can log off th host and the VM will keep running. 
 
 *Shutting down a detached VM*  
-
 If Jupyterhub is running, then log on to it, open a terminal window from there, and say  
 
  	sudo shutdown now
@@ -213,13 +197,11 @@ If Jupyterhub is not available, then one can shut down the "headless" process us
 ## Other notes
 
 *Getting the IP address as a shell variable*  
-
 	myIP=$(ip a s enp0s3 | awk '/inet / {print$2}'|awk -F'/' '{print $1}')  
 	echo $myIP
 
 
 *Installing Mayavi*  
-
 Probably not all the below are necessary.
 
 	python -m pip install vtk
@@ -230,7 +212,6 @@ Probably not all the below are necessary.
 
 
 *Trying to making the scrolling “natural” (this didn’t work, however)*  
-
 This follows https://www.reddit.com/r/ManjaroLinux/comments/bagymb/natural_scrolling_in_manjaro_i3/. Edit /etc/X11/xorg.conf.d/00-touchpad.conf file, adding 
 
 	Section "InputClass"                 
@@ -241,7 +222,6 @@ This follows https://www.reddit.com/r/ManjaroLinux/comments/bagymb/natural_scrol
 
 
 *Setting the time*  
-
 This follows https://archived.forum.manjaro.org/t/howto-get-your-time-timezone-right-using-manjaro-windows-dual-boot/89359
 
 	sudo timedatectl set-local-rtc 0
@@ -252,7 +232,6 @@ This follows https://archived.forum.manjaro.org/t/howto-get-your-time-timezone-r
 
 
 *Auto-starting jupyter notebook*  
-
 This follows https://arcolinux.com/how-to-autostart-any-application-on-any-linux-desktop/. Add file jupyter.desktop to ~./config/autostart, containing this:
 
 	[Desktop Entry]
@@ -264,7 +243,6 @@ This follows https://arcolinux.com/how-to-autostart-any-application-on-any-linux
 
 
 *Reporting the version of python from a notebook*  
-
 	from platform import python_version
 	print(python_version())
 
