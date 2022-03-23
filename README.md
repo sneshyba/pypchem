@@ -173,7 +173,7 @@ The following steps are for when autoboot has not already been set up; you'll se
 6. Go back to the VM window where you launched Jupyterhub and enter ctrl-C a couple of times, to stop Jupyterhub.
 
 
-*Setting up autoboot* 
+*Setting up autoboot*  
 In the VM, one adds the line *@reboot path-to-jupyterhub -f /etc/jupyterhub/jupyterhub_config.py --ip=0.0.0.0* to the boot file, using crontab:
 
 	sudo EDITOR=nano crontab -e
@@ -187,7 +187,6 @@ The following steps are for when autoboot has already been set up; for system co
 
 
 *Shutting down the VM*  
-
 Find an icon that looks like a circle with a vertical line through part of it, on the upper right; it's just to the left of the time/date. Click that and choose *Shutdown*.
 
 
