@@ -202,11 +202,12 @@ This is based on https://superuser.com/questions/135498/run-virtualbox-in-backgr
 The "&" makes this a detached process, so one can log off th host and the VM will keep running. 
 
 *Shutting down a detached VM*  
-- If Jupyterhub is running, then log on to it, open a terminal window from there, and say  
+
+If Jupyterhub is running, then log on to it, open a terminal window from there, and say  
 
  	sudo shutdown now
 
-- If Jupyterhub is not available, then one can shut down the "headless" process using top on the host.
+If Jupyterhub is not available, then one can shut down the "headless" process using top on the host.
 
 
 ## Other notes
