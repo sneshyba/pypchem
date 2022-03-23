@@ -214,8 +214,8 @@ If Jupyterhub is not available, then one can shut down the "headless" process us
 
 *Getting the IP address as a shell variable*  
 
-myIP=$(ip a s enp0s3 | awk '/inet / {print$2}'|awk -F'/' '{print $1}')  
-echo $myIP
+	myIP=$(ip a s enp0s3 | awk '/inet / {print$2}'|awk -F'/' '{print $1}')  
+	echo $myIP
 
 
 *Installing Mayavi*  
