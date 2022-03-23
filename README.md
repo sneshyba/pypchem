@@ -25,6 +25,7 @@ Some of these might be redundant.
 
 
 *Querying the installed versions*  
+
 	python --version
 	jupyter --version
 	jupyterhub --version
@@ -138,15 +139,26 @@ If an instructor wants to manually bring student work into the nbgrader environm
 
 *Launching jupyter, etc., from the terminal window*  
 Once the VM is booted, you’ll find yourself in a Manjaro operating system. Open a terminal window (icon at the top), and enter
-1. *jupyter notebook* to launch just a notebook; a Firefox window with a jupyter notebook screen should open up. When you're done, press the *quit* button of any browser windows associated with Juptyter. If the terminal window used to launch jupyter notebook is still busy, ctrl-C a couple of times. 
-2. *jupyterhub* to launch a single-user version of jupyterhub. You'll have to open a Firefox window and enter localhost.
+
+	jupyter notebook 
+	
+to launch just a notebook; a Firefox window with a jupyter notebook screen should open up. When you're done, press the *quit* button of any browser windows associated with Juptyter. If the terminal window used to launch jupyter notebook is still busy, ctrl-C a couple of times. 
+
+To launch Jupyterhub, open a terminal window (icon at the top), and enter
+
+	jupyterhub 
+	
+This will launch a single-user version of jupyterhub. You'll have to open a Firefox window and enter localhost to get into it.
 
 
 *Running Jupyterhub with port forwarding*  
 If instead of wanting a single-user jupyter notebook, you want a multi-user jupyterhub environment available on your host machine:
 1. With the VM shut down, go to settings/Network/Advanced/Port Forwarding, and enter 8000 in Host Port and Guest Port.
 2. Use VirtualBox to launch the VM as before.
-3. Once the VM is booted, open a terminal window (icon at the top) as before, but this time enter *sudo jupyterhub -f /etc/jupyterhub/jupyterhub_config.py*. 
+3. Once the VM is booted, open a terminal window (icon at the top) as before, but this time enter 
+
+	sudo jupyterhub -f /etc/jupyterhub/jupyterhub_config.py 
+
 4. Unlike the *jupyter notebook* command, *sudo jupyterhub* doesn't launch a browser window automatically. Instead, on a browser of the laptop or desktop that is *hosting* your VM, enter http://localhost:8000 (or just localhost:8000). You can log on as instructor, or student1.
 5. When you're done, press the *quit* button of any browser windows associated with Juptyter. Back on the VM, the terminal window used to launch jupyterhub will still be busy, so you have to enter ctrl-C a couple of times to quit out of it.
 
@@ -197,6 +209,7 @@ If Jupyterhub is not available, then one can shut down the "headless" process us
 ## Other notes
 
 *Getting the IP address as a shell variable*  
+
 	myIP=$(ip a s enp0s3 | awk '/inet / {print$2}'|awk -F'/' '{print $1}')  
 	echo $myIP
 
