@@ -194,19 +194,15 @@ The following steps are for when autoboot has already been set up; for system co
 Find an icon that looks like a circle with a vertical line through part of it, on the upper right; it's just to the left of the time/date. Click that and choose *Shutdown*.
 
 
-*Launching the VM as a detached process*
+*Launching the VM as a detached process*  
 This is based on https://superuser.com/questions/135498/run-virtualbox-in-background-without-a-window. After logging on to the host, cd to the folder that contains the .vdi, and issue this command (here, assuming pchem.vdi):
 
 	VBoxHeadless --startvm pchem &
 	
 The "&" makes this a detached process, so one can log off th host and the VM will keep running. 
 
-*Shutting down a detached VM*
-- If Jupyterhub is running, then log on to it, open a terminal window from there, and say
-
-
-	VBoxHeadless --startvm pchem &
-	
+*Shutting down a detached VM*  
+- If Jupyterhub is running, then log on to it, open a terminal window from there, and say  
 
  	sudo shutdown now
 
