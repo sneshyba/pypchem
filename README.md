@@ -163,21 +163,6 @@ If instead of wanting a single-user jupyter notebook, you want a multi-user jupy
 5. When you're done, press the *quit* button of any browser windows associated with Juptyter. Back on the VM, the terminal window used to launch jupyterhub will still be busy, so you have to enter ctrl-C a couple of times to quit out of it.
 
 
-*Running Jupyterhub with bridge (autoboot previously set up)*  
-
-The following steps are for when autoboot has already been set up; for system commands that do that setting up, see the next item.
-1. With the VM shut down, go to settings/Network and choose *Bridged Adapter* to attach to (this overrides the default, NAT). For a name, choose the local Wifi (or enp0s25 on the 7610). Then boot the VM and make a note of its IP address, using e.g. the command "ip a" in a terminal window. This address will appear something like *inet w.x.y.z/...* (but with numbers for w, x, y, and z). 
-4. On a browser of a machine on the LAN, enter http://w.x.y.z:8000/hub/login, where the letters correspond to the VM's IP address you made a note of before, and follow the prompts. 
-5. When you're done, press the *quit* button of any browser windows associated with Juptyter. 
-
-
-*Setting up autoboot* 
-
-In the VM, one adds the line *@reboot path-to-jupyterhub -f /etc/jupyterhub/jupyterhub_config.py --ip=0.0.0.0* to the boot file, using crontab:
-
-	sudo EDITOR=nano crontab -e
-
-
 *Running Jupyterhub with bridge (autoboot not previously set up)*
 
 The following steps are for when autoboot has not already been set up; you'll see that there's a lot in common with the autoboot process, but with two additional steps.
@@ -188,9 +173,41 @@ The following steps are for when autoboot has not already been set up; you'll se
 5. When you're done, press the *quit* button of any browser windows associated with Juptyter. 
 6. Go back to the VM window where you launched Jupyterhub and enter ctrl-C a couple of times, to stop Jupyterhub.
 
+
+*Setting up autoboot* 
+
+In the VM, one adds the line *@reboot path-to-jupyterhub -f /etc/jupyterhub/jupyterhub_config.py --ip=0.0.0.0* to the boot file, using crontab:
+
+	sudo EDITOR=nano crontab -e
+
+
+*Running Jupyterhub with bridge (autoboot previously set up)*  
+
+The following steps are for when autoboot has already been set up; for system commands that do that setting up, see the next item.
+1. With the VM shut down, go to settings/Network and choose *Bridged Adapter* to attach to (this overrides the default, NAT). For a name, choose the local Wifi (or enp0s25 on the 7610). Then boot the VM and make a note of its IP address, using e.g. the command "ip a" in a terminal window. This address will appear something like *inet w.x.y.z/...* (but with numbers for w, x, y, and z). 
+4. On a browser of a machine on the LAN, enter http://w.x.y.z:8000/hub/login, where the letters correspond to the VM's IP address you made a note of before, and follow the prompts. 
+5. When you're done, press the *quit* button of any browser windows associated with Juptyter. 
+
+
 *Shutting down the VM*  
 
 Find an icon that looks like a circle with a vertical line through part of it, on the upper right; it's just to the left of the time/date. Click that and choose *Shutdown*.
+
+
+*Launching the VM as a detached process*
+This is based on https://superuser.com/questions/135498/run-virtualbox-in-background-without-a-window. After logging on to the host, cd to the folder that contains the .vdi, and issue this command (here, assuming pchem.vdi):
+
+	VBoxHeadless --startvm pchem &
+	
+The "&" makes this a detached process, so one can log off th host and the VM will keep running. 
+
+*Shutting down a detached VM*
+- If Jupyterhub is running, then log on to it, open a terminal window from there, and say
+ 
+	sudo shutdown now
+
+- If Jupyterhub is not available, then one can shut down the "headless" process using top on the host.
+
 
 ## Other notes
 
