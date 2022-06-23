@@ -258,3 +258,7 @@ This follows https://arcolinux.com/how-to-autostart-any-application-on-any-linux
 	from platform import python_version
 	print(python_version())
 
+
+*Installing virtualbox on Manjaro*  
+
+	sudo pacman -Syu virtualbox
