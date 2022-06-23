@@ -259,6 +259,14 @@ This follows https://arcolinux.com/how-to-autostart-any-application-on-any-linux
 	print(python_version())
 
 
+*Before installing virtualbox on Manjaro*  
+
+	uname -r
+
+*Installing virtualbox on Manjaro*  
+
+	sudo pacman -Syu virtualbox
+
 *Installing virtualbox on Manjaro*  
 
 	sudo pacman -Syu virtualbox
