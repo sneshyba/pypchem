@@ -270,3 +270,10 @@ This follows https://arcolinux.com/how-to-autostart-any-application-on-any-linux
 *Installing virtualbox on Manjaro*  
 
 	sudo pacman -Syu virtualbox
+
+*When the screen locks but can't be unlocked*
+
+	Switch to virtual terminal using Ctrl+Alt+F2
+	Log in and execute loginctl unlock-session 3
+	Then log out with Ctrl-D
+	Switch back to the running session with Ctrl+Alt+F1
