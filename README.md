@@ -267,10 +267,6 @@ This follows https://arcolinux.com/how-to-autostart-any-application-on-any-linux
 
 	sudo pacman -Syu virtualbox
 
-*Installing virtualbox on Manjaro*  
-
-	sudo pacman -Syu virtualbox
-
 *When the screen locks but can't be unlocked*
 
 	Switch to virtual terminal using Ctrl+Alt+F2
