@@ -168,13 +168,13 @@ If instead of wanting a single-user jupyter notebook, you want a multi-user jupy
 5. When you're done, press the *quit* button of any browser windows associated with Juptyter. Back on the VM, the terminal window used to launch jupyterhub will still be busy, so you have to enter ctrl-C a couple of times to quit out of it.
 
 *As related note, a way to make Jupyterhub on a VM avaliable without needing the VM's IP address* 
-In virtualbox, go to Settings/Network/Adaptor 1/, then select *NAT* in the dropdown *Attached to:*. Selecting *Advanced*, click on *Port Forwarding*. In the *Port Forwarding Rules* window, the *Name* can be anything you make up, the *Protocol* should be *TCP*, the *Host Port* should be a number that the host doesn't use (like 9001), and the *Guest Port* should be 8000. Now, suppose your host has IP address 10.150.1.100.  Then to get to the VM’s Jupyterhub, you’d enter into the browser window something like this:
+In virtualbox, go to Settings/Network/Adaptor 1/, then select *NAT* in the dropdown *Attached to:*. Selecting *Advanced*, click on *Port Forwarding*. In the *Port Forwarding Rules* window, the *Name* can be anything you make up, the *Protocol* should be *TCP*, the *Host Port* should be a number that the host doesn't use (like 9000), and the *Guest Port* should be 8000. Now, suppose your host has IP address 10.150.1.100.  Then to get to the VM’s Jupyterhub, you’d enter into the browser window something like this:
 
-	10.150.1.100:9001/
+	10.150.1.100:9000/
 
 or 
 
-	http://10.150.1.100:9001/
+	http://10.150.1.100:9000/
 
 
 
