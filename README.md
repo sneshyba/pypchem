@@ -114,6 +114,7 @@ Then, after logging on (e.g., as student1), it's good to get rid of unwanted nbg
 	jupyter nbextension disable --user course_list/main --section=tree
 
 or, to do these last three all at once, 
+
 	jupyter nbextension disable --user create_assignment/main; jupyter nbextension disable --user formgrader/main --section=tree; jupyter nbextension disable --user course_list/main --section=tree
 
 
