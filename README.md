@@ -15,13 +15,15 @@ Some of these might be redundant.
 
 	sudo python -m pip install jupyterhub
 	python -m pip install notebook
-	python -m pip install jupyterlab
 	python -m pip install jupyter 
 	sudo python -m pip install jupyter-client==7.0.0 # This changes the jupyter_client version
 	jupyter nbextension install --system --py nbgrader
 	jupyter nbextension enable nbgrader --py
 	sudo jupyter serverextension enable --sys-prefix --py nbgrader
 	sudo jupyter serverextension enable --system --py nbgrader
+	
+	(python -m pip install jupyterlab will install jupyterlab, but I don't recommend doing so if one always wants the "classic" interface)
+
 
 
 *Querying the installed versions*  
