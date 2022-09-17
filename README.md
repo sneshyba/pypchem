@@ -50,7 +50,7 @@ The following versions work -- many are default. I don't understand why the stud
 	nbformat         : 5.2.0
 	notebook         : 6.4.12
 	qtconsole        : 5.2.2
-	traitlets        : 5.0.0
+	traitlets        : 5.3.0
 
 	[student4@instructor-virtualbox ~]$ jupyter --version
 	Selected Jupyter core packages...
@@ -76,7 +76,7 @@ Other configuration settings can be show using
 I used commands like the following to tailor these:
 
 	pip install jupyter-client==7.0.0
-	pip install traitlets==5.0.0
+	pip install traitlets==5.3.0
 	pip install nbgrader==0.7.0
 	
 Here, it seems a key setting is the nbgrader version. 
