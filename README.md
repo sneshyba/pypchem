@@ -15,13 +15,15 @@ Some of these might be redundant.
 
 	sudo python -m pip install jupyterhub
 	python -m pip install notebook
-	python -m pip install jupyterlab
 	python -m pip install jupyter 
-	sudo python -m pip install jupyter-client==6.1.12 # This changes the jupyter_client version
+	sudo python -m pip install jupyter-client==7.0.0 # This changes the jupyter_client version
 	jupyter nbextension install --system --py nbgrader
 	jupyter nbextension enable nbgrader --py
 	sudo jupyter serverextension enable --sys-prefix --py nbgrader
 	sudo jupyter serverextension enable --system --py nbgrader
+	
+	(python -m pip install jupyterlab will install jupyterlab, but I don't recommend doing so if one always wants the "classic" interface)
+
 
 
 *Querying the installed versions*  
@@ -34,23 +36,23 @@ Some of these might be redundant.
 
 
 *Version compatibility*  
-The following versions work -- all default except for jupyter-client version 6.1.12. I don't understand why the students' notebook version is different from the instructor's version, but it doesn't seem to hurt anything.
+The following versions work -- many are default. I don't understand why the students' notebook version is different from the instructor's version, but it doesn't seem to hurt anything.
 
 	[instructor@instructor-virtualbox ~]$ jupyter --version
 	Selected Jupyter core packages...
 	IPython          : 7.32.0
 	ipykernel        : 6.4.2
 	ipywidgets       : 7.6.5
-	jupyter_client   : 6.1.12
+	jupyter_client   : 7.0.0
 	jupyter_core     : 4.9.2
 	jupyter_server   : 1.15.4
 	jupyterlab       : 3.3.2
-	nbclient         : not installed
-	nbconvert        : 5.6.1
+	nbclient         : 0.6.1
+	nbconvert        : 7.0.0
 	nbformat         : 5.2.0
-	notebook         : 6.0.0
+	notebook         : 6.4.12
 	qtconsole        : 5.2.2
-	traitlets        : 4.3.3
+	traitlets        : 5.3.0
 
 	[student4@instructor-virtualbox ~]$ jupyter --version
 	Selected Jupyter core packages...
@@ -66,7 +68,20 @@ The following versions work -- all default except for jupyter-client version 6.1
 	nbformat         : 5.2.0
 	notebook         : 6.4.10
 	qtconsole        : 5.2.2
-	traitlets        : 4.3.3
+	traitlets        : 5.3.0
+
+Other configuration settings can be show using
+
+	pip list jupyter-console
+
+*Tailoring the ngrader configuration*  
+I used commands like the following to tailor these:
+
+	pip install jupyter-client==7.0.0
+	pip install traitlets==5.3.0
+	pip install nbgrader==0.7.0
+	
+Here, it seems a key setting is the nbgrader version. 
 
 
 *Configuring python*  
