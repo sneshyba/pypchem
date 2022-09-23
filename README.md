@@ -137,13 +137,10 @@ It seems that student accounts do not require .jupyter/nbgrader_config.py.
 
 *To expand the hard drive space on a virtual machine*
 
-Turn off the VM. 
-
-In the Virtualbox GUI, go to File>Virtual Media Manager, select the hard disk to resize, and under “Attributes” adjust the “Size” slider (or type desired size into text box on right). Click “Apply.”
-
-Restart the VM and log on. Open the GParted gui, and select the partition to be resized (typically /dev/sda1) using Menu bar- Partition>Resize/Move>. Then type the new size, or slide the bar on top to set the target size for the partition. Click “Resize” to apply the partitioning changes, from the menu bar, click Edit > Apply All Operations.
-
-A warning about potential data loss willl show- Click ‘okay”, then you can close gparted.
+1. Turn off the VM. 
+1. In the Virtualbox GUI, go to File>Virtual Media Manager, select the hard disk to resize, and under “Attributes” adjust the “Size” slider (or type desired size into text box on right). Click “Apply.”
+1. Restart the VM and log on. Open the GParted gui, and select the partition to be resized (typically /dev/sda1) using Menu bar- Partition>Resize/Move>. Then type the new size, or slide the bar on top to set the target size for the partition. Click “Resize” to apply the partitioning changes, from the menu bar, click Edit > Apply All Operations.
+1. A warning about potential data loss willl show- Click ‘okay”, then you can close gparted.
 
 *Processing student work with nbgrader using the regular nbgrader pipeline*  
 Go to *Formgrader/Collect*, click on the number underneath *Submissions* (if non-zero), and follow the instructions provided.
