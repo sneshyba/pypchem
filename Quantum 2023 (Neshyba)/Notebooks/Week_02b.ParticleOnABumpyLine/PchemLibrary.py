@@ -25,16 +25,17 @@ def plotter(Epsi,psi,xvec_in,V,n, label='x'):
     plt.ylim(ybot,ytop)
     
     # Plot the wave functions
-    wavefunctionscale = vertical_scale/5
+    wavefunctionscale = vertical_scale/4
     for i in np.arange(n-1,-1,-1):
         color=mpl.cm.jet_r((i)/(float)(n-1),1)
         plt.plot(xvec,psi[:,i]*wavefunctionscale+Epsi[i].magnitude,c=color)
-        thislabel = 'n='+str(i+1)+', E={}'.format(np.round(Epsi[i]*1000)/1000.0)
-        ax.axhline(y=Epsi[i].magnitude,xmin=xmin,xmax=xmax,c=color,ls='--',label=thislabel)
+        thislabel = 'n='+str(i+1)+', E={}'.format(np.round(Epsi[i].magnitude*10000)/10000.0)
+        plt.plot([xmin,xmax],[Epsi[i].magnitude, Epsi[i].magnitude],c=color,ls='--',label=thislabel)
+        #ax.axhline(y=Epsi[i].magnitude,xmin=xmin,xmax=1,c=color,ls='--',label=thislabel)
         
     # Labels and legend
     plt.xlabel(label+' ('+str(xvec_in.units)+')')
-    plt.ylabel('Energy (hartree)')
+    plt.ylabel('Energy ('+str(Epsi[i].units)+')')
     L=plt.legend(bbox_to_anchor=(1.05,1),loc=2,borderaxespad=0.)
     box=ax.get_position()
     ax.set_position([box.x0,box.y0,0.7*box.width,box.height])
