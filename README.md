@@ -121,6 +121,10 @@ The "course" tab in nbgrader doesn't seem to do much, so to disable it one can u
 Students need an account on the system,
 
 	sudo useradd student1 -m; sudo passwd student1
+
+ or
+	ns=studentname
+ 	sudo useradd $ns -m; echo "$ns:$ns" | sudo chpasswd
 	
 Then, after logging on (e.g., as student1), it's good to get rid of unwanted nbgrader options,
 
