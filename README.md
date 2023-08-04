@@ -123,6 +123,7 @@ Students need an account on the system,
 	sudo useradd student1 -m; sudo passwd student1
 
  or
+ 
 	ns=studentname
  	sudo useradd $ns -m; echo "$ns:$ns" | sudo chpasswd
 	
