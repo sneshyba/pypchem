@@ -100,6 +100,17 @@ Using "sudo" imports for all users.
 *The exchange directory*  
 Before setting up nbgrader, it is necessary to loosen the protections of folder '/srv/nbgrader/', '/srv/nbgrader/exchange', and '/srv/nbgrader/exchange/pchem'. I set them to wide-open (777) privileges. 
 
+When recycling an old course, the folders in /srv/nbgrader/exchange/coursename (e.g., /srv/nbgrader/exchange/pchem) need to be emptied. An efficient (if a little scarey) way to do that is 
+
+	cd /srv/nbgrader/exchange/coursename/feedback
+ 	rm -rf *
+
+Then do the same for folders inbound and outbound. 
+
+Also when recycling an old course, it'll be necessary to remove students:
+
+	sudo userdel --remove student1
+ 	nbgrader db student remove student1 --force
 
 *Setting up nbgrader in the instructor’s account*  
 
@@ -118,15 +129,19 @@ The "course" tab in nbgrader doesn't seem to do much, so to disable it one can u
 
 
 *Setting up nbgrader in student accounts*  
-Students need an account on the system,
+Students need an account on the system, and added to nbgrader:
 
 	sudo useradd student1 -m; sudo passwd student1
-
- or
- 
-	ns=studentname
- 	sudo useradd $ns -m; echo "$ns:$ns" | sudo chpasswd
+	nbgrader db student add student1
+	nbgrader db student list
 	
+The above lines can be streamlined with the following:
+
+	ns=student1
+  	sudo useradd $ns -m; echo "$ns:$ns" | sudo chpasswd
+	nbgrader db student add $ns
+	nbgrader db student list
+
 Then, after logging on (e.g., as student1), it's good to get rid of unwanted nbgrader options,
 
 	jupyter nbextension disable --user create_assignment/main
