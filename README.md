@@ -105,7 +105,12 @@ When recycling an old course, the folders in /srv/nbgrader/exchange/coursename (
 	cd /srv/nbgrader/exchange/coursename/feedback
  	rm -rf *
 
-Then do the same for folders inbound and outbound.
+Then do the same for folders inbound and outbound. 
+
+Also when recycling an old course, it'll be necessary to remove students:
+
+	sudo userdel --remove student1
+ 	nbgrader db student remove student1 --force
 
 *Setting up nbgrader in the instructor’s account*  
 
@@ -124,22 +129,19 @@ The "course" tab in nbgrader doesn't seem to do much, so to disable it one can u
 
 
 *Setting up nbgrader in student accounts*  
-Students need an account on the system,
+Students need an account on the system, and added to nbgrader:
 
 	sudo useradd student1 -m; sudo passwd student1
-
- or
- 
-	ns=studentname
- 	sudo useradd $ns -m; echo "$ns:$ns" | sudo chpasswd
-
-The above lines that add a student to the system *and* to nbgrader can be streamlined with the following:
+	nbgrader db student add student1
+	nbgrader db student list
+	
+The above lines can be streamlined with the following:
 
 	ns=student1
   	sudo useradd $ns -m; echo "$ns:$ns" | sudo chpasswd
 	nbgrader db student add $ns
 	nbgrader db student list
-	
+
 Then, after logging on (e.g., as student1), it's good to get rid of unwanted nbgrader options,
 
 	jupyter nbextension disable --user create_assignment/main
