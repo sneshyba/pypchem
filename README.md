@@ -98,9 +98,9 @@ Using "sudo" imports for all users.
 
 
 *The exchange directory*  
-Before setting up nbgrader, it is necessary to loosen the protections of folder '/srv/nbgrader/', '/srv/nbgrader/exchange', and '/srv/nbgrader/exchange/pchem'. I set them to wide-open (777) privileges. 
+Before setting up nbgrader, it is necessary to loosen the protections of folder '/srv/nbgrader/', '/srv/nbgrader/exchange', and '/srv/nbgrader/exchange/coursename'. I set them to wide-open (777) privileges. 
 
-When recycling an old course, the folders in /srv/nbgrader/exchange/coursename (e.g., /srv/nbgrader/exchange/pchem) need to be emptied. An efficient (if a little scarey) way to do that is 
+When recycling an old course, the folders in /srv/nbgrader/exchange/coursename (e.g., /srv/nbgrader/exchange/coursename) need to be emptied. An efficient (if a little scarey) way to do that is 
 
 	cd /srv/nbgrader/exchange/coursename/feedback
  	rm -rf *
@@ -117,10 +117,10 @@ Also when recycling an old course, it'll be necessary to remove students:
 Create a file, nbgrader_config.py, in two places: the folder where the code will reside, and in the .jupyter folder in the home directory. Contents of both should be something along the lines of
 
 	c = get_config()
-	c.CourseDirectory.course_id = “pchem”
-	c.CourseDirectory.root = '/home/instructor/pchem’
+	c.CourseDirectory.course_id = “coursename”
+	c.CourseDirectory.root = '/home/instructor/coursename’
 	c.Exchange.root = '/srv/nbgrader/exchange'
-	c.NbGrader.logfile = ‘/home/instructor/pchem/logfile.txt'
+	c.NbGrader.logfile = ‘/home/instructor/coursename/logfile.txt'
 	c.ClearSolutions.code_stub = {"python": "# Your code here \n"}
 
 The "course" tab in nbgrader doesn't seem to do much, so to disable it one can use
@@ -169,18 +169,18 @@ Go to *Formgrader/Collect*, click on the number underneath *Submissions* (if non
 *Processing student work with nbgrader without using the regular nbgrader pipeline*  
 If an instructor wants to manually bring student work into the nbgrader environment (instead of using the regular nbgrader pipeline),
 
-1. In the course folder (say pchem), create a folder called “submitted”.
+1. In the course folder (say coursename), create a folder called “submitted”.
 1. In submitted, create a folder called “studentx”.
 1. Copy the student-submitted zip file “assignment1” into the studentx folder, and unzip it. Now there should be a folder called assignment1.
 1. In jupyter, navigate into submitted/studentx/assignment1/ and open the .ipynb file there (presumably, “assignment1.ipynb”), assign grades & make comments.
-1. In formgrader/Manage Assignments, press the “Generate Feedback” button. Now there should appear a new folder in pchem called “feedback”. The feedback for each student should be there.
+1. In formgrader/Manage Assignments, press the “Generate Feedback” button. Now there should appear a new folder in coursename called “feedback”. The feedback for each student should be there.
 
 ## VM-specific notes
 
 *Getting the VM*  
-1. Download “pchem” from the google folder and de-compress it. This will take almost 25 Gbytes, temporarily; the decompressed file alone is ~16 Gbytes. 
+1. Download “coursename” from the google folder and de-compress it. This will take almost 25 Gbytes, temporarily; the decompressed file alone is ~16 Gbytes. 
 2. Install VirtualBox (https://www.virtualbox.org/)
-3. Use VirtualBox to launch the VM: In the VirtualBox GUI, go to Tools/Add, navigate to the pchem folder you just decompressed, and double-click *pchem.vdbox*. A big green arrow launches it.
+3. Use VirtualBox to launch the VM: In the VirtualBox GUI, go to Tools/Add, navigate to the coursename folder you just decompressed, and double-click *coursename.vdbox*. A big green arrow launches it.
 
 
 *Launching jupyter, etc., from the terminal window*  
@@ -247,11 +247,11 @@ Find an icon that looks like a circle with a vertical line through part of it, o
 
 
 *Launching the VM as a detached process*  
-This is based on https://superuser.com/questions/135498/run-virtualbox-in-background-without-a-window. After logging on to the host, cd to the folder that contains the .vdi, and issue this command (here, assuming pchem.vdi):
+This is based on https://superuser.com/questions/135498/run-virtualbox-in-background-without-a-window. After logging on to the host, cd to the folder that contains the .vdi, and issue this command (here, assuming coursename.vdi):
 
-	VBoxHeadless --startvm pchem &
+	VBoxHeadless --startvm coursename &
 	
-The "&" makes this a detached process, so one can log off th host and the VM will keep running. 
+The "&" makes this a detached process, so one can log off the host and the VM will keep running. 
 
 *Shutting down a detached VM*  
 If Jupyterhub is running, then log on to it, open a terminal window from there, and say  
@@ -327,5 +327,5 @@ This follows https://arcolinux.com/how-to-autostart-any-application-on-any-linux
 
 	Switch to virtual terminal using Ctrl+Alt+F2
 	Log in and execute loginctl unlock-session 3
-	Then log out with Ctrl-D
-	Switch back to the running session with Ctrl+Alt+F1
+	Then log out wiCtrl-D
+	Switch back to the running session wiCtrl+Alt+F1
