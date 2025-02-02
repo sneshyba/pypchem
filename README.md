@@ -156,6 +156,7 @@ or, to do these last three all at once,
 It seems that student accounts do not require .jupyter/nbgrader_config.py. 
 
 *To make backups of a folder*
+
 On the VM, get into a terminal window, cd to the course folder (like pchem), and then
 
 	tar -cvzf source.gz source
