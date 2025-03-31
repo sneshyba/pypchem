@@ -38,8 +38,8 @@ def CreateClimateParams(epsdictionary,k_la=120):
     ClimateParams = {}
     
    # Amount in the atmosphere (pre-industrial, and at the time of the NASA figure, 2003)
-    C_atm_preind = 615
-    C_atm_2003 = 800
+    C_atm_preind = 590
+    C_atm_2003 = 780
     
     # The starting time
     epsdf = epsdictionary['dataframe']
@@ -50,12 +50,12 @@ def CreateClimateParams(epsdictionary,k_la=120):
     F_la_2003 = F_la_preind
     F_al_2003 = F_la_preind + 3
 
-    # Atm-to-land flux constants (Eq. 4 of Cambio1.0, using NASA's 2003 atm->land fluxes 
+    # Atm-to-land flux constants (Eq. 4 of Cambio1.0, using 2003 fluxes 
     # and reservoir amounts in pre-industrial time and 2003)
     k_al1 = (F_al_2003-F_la_preind)/(C_atm_2003-C_atm_preind)
     k_al0 = F_la_preind-k_al1*C_atm_preind
 
-    # Atmosphere-to-ocean (Eq. 6 of Cambio1.0, using NASA's 2003 atm->ocean flux and 
+    # Atmosphere-to-ocean (Eq. 6 of Cambio1.0, using 2003 flux and 
     # atmospheric reservoir amount)
     F_ao_2003 = 92
     k_ao = F_ao_2003/C_atm_2003
@@ -69,11 +69,10 @@ def CreateClimateParams(epsdictionary,k_la=120):
     k = epsdictionary['k']
     k_oa = k*(k_ao/(r*k_al1)-1)
 
-    # Atmosphere-to-land feedback parameters (1.35 0.442 0.697)
-    # (If optimized with albedo feedback taken into account, these would be 1.39 0.473 0.715)
-    k_al1_Tstar = 1.35
-    k_al1_deltaT = 0.442
-    fractional_k_al1_floor = 0.697
+    # Atmosphere-to-land feedback parameters
+    k_al1_Tstar = 1.43
+    k_al1_deltaT = 0.471
+    fractional_k_al1_floor = 0.684
     
     # Albedo parameters
     preindustrial_albedo = 0.3
@@ -86,7 +85,7 @@ def CreateClimateParams(epsdictionary,k_la=120):
     ClimateParams['k_oa'] = k_oa
     ClimateParams['k_ao'] = k_ao
     ClimateParams['k'] = k
-    ClimateParams['DC'] = 0.032  
+    ClimateParams['DC'] = 0.0321  
     ClimateParams['climate sensitivity'] = 3/C_atm_preind
     ClimateParams['C_atm 2003'] = C_atm_2003
     ClimateParams['F_ao 2003'] = F_ao_2003
@@ -123,6 +122,7 @@ def CreateClimateState(ClimateParams):
     F_ao_preind = ClimateParams['k_ao'] * ClimateParams['preindustrial C_atm'] 
     F_oa_preind = F_ao_preind
     ClimateState['C_ocean'] = F_oa_preind/ClimateParams['k_oa']
+    print('Computing a pre-industrial C_ocean = ', ClimateState['C_ocean'])
     
     # Other useful parameters
     ClimateState['albedo'] = ClimateParams['preindustrial albedo']
@@ -143,6 +143,10 @@ def sigmafloor(x,x_trans=0,x_interval=1,sigma_floor_infinity=0):
     """Generates a sigmoid (smooth step-down) function with a floor"""
     temp = 1 - 1/(1 + np.exp(-(x-x_trans)*3/x_interval))
     return temp*(1-sigma_floor_infinity)+sigma_floor_infinity
+    
+def sigmoid(x,x_thresh=0,x_trans=1,sigma_x_infinity=0):
+    """Generates a sigmoid (smooth step-down) function with a floor"""
+    return sigmafloor(x,x_thresh,x_trans,sigma_x_infinity)
     
 def sigmaup(t,transitiontime,transitiontimeinterval):
     """Generates a sigmoid (smooth step-up) function"""
@@ -342,7 +346,7 @@ def MakeEmissionsScenario2LTE(t_start,t_stop,nsteps,k,eps_0,t_0,t_peak,delta_t_t
     return time, neweps
 
 def MakeHybridEmissionScenario(\
-    t_start,t_stop,EnROADS_time,EnROADS_eps,filename,k=0.025, nsteps=1000,reportflag=False,plotflag=False):
+    t_start,t_stop,EnROADS_time,EnROADS_eps,filename,k=0.0166, nsteps=1000,reportflag=False,plotflag=False):
     
     # Extracting the first emission entry of the baseline scenario, for pegging the cambio scenario
     eps_0=EnROADS_eps[0]; print(eps_0)
@@ -654,13 +658,21 @@ def Climatestate_list_plots(ClimateState_list,items_to_plot,plot_title):
 
         if np.size(item) == 1:
             item_array = CollectClimateTimeSeries(ClimateState_list,item)
-            printmaxmin(time_array,item_array,label=plot_title+' ('+item+')')
+            if len(plot_title) != 0:
+                plotlabel = plot_title+' ('+item+')'
+            else:
+                plotlabel = item
+            printmaxmin(time_array,item_array,label=plotlabel)
             plt.plot(time_array,item_array,label=item)
         else:
             for subitem in item:
                 subitem_array = CollectClimateTimeSeries(ClimateState_list,subitem)
                 printmaxmin(time_array,subitem_array,label=plot_title+' ('+subitem+')')
-                plt.plot(time_array,subitem_array,label=plot_title+' ('+subitem+')')
+                if len(plot_title) != 0:
+                    plotlabel = plot_title+' ('+subitem+')'
+                else:
+                    plotlabel = subitem
+                plt.plot(time_array,subitem_array,label=plotlabel)
         plt.legend()          
         plt.show()
     return
