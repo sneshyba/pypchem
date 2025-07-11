@@ -1,5 +1,5 @@
 # pypchem
-Python code for use in courses in Physical Chemistry
+Python code for use in courses in Physical Chemistry. The content in these folders is licensed under Creative Commons attribution-noncommercial 4.0 International license.
 
 ## Installation Notes
 *Configuring pip on a Manjaro vm*  
