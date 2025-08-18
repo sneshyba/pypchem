@@ -70,7 +70,7 @@ The following versions work -- many are default. I don't understand why the stud
 	qtconsole        : 5.2.2
 	traitlets        : 5.3.0
 
-Other configuration settings can be show using
+Other configuration settings can be shown using
 
 	pip list jupyter-console
 
